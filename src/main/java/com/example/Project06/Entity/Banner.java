@@ -1,0 +1,33 @@
+package com.example.Project06.Entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+
+@Entity
+@Table(name = "Banners")
+@Getter
+@Setter
+public class Banner {
+
+    @Id
+    @Column(nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer bannerId;
+
+    @Column(length = 45)
+    private String name;
+
+    @Column
+    private LocalDate date;
+
+    @Column(length = 45)
+    private String status;
+
+    @Column(length = 45)
+    private String taital;
+
+}
