@@ -20,7 +20,7 @@ public class User {
     @SequenceGenerator(name = "user_id_generator", initialValue = 1000)
     private Integer id;
 
-    @Column(nullable = false, length = 250)
+    @Column(length = 250)
     private String fullName;
 
     @Column(nullable = false, length = 250)
