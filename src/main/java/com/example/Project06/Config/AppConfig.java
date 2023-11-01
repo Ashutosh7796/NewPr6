@@ -79,7 +79,7 @@ public class AppConfig {
                 .formLogin().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/account/**").permitAll()
-
+                .requestMatchers("/ItTraining/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
