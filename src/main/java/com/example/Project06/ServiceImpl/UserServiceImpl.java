@@ -6,9 +6,11 @@ import com.example.Project06.Dto.PasswordChange;
 import com.example.Project06.Dto.RegisterDto;
 import com.example.Project06.Dto.ResponseDto;
 import com.example.Project06.Entity.Company;
+import com.example.Project06.Entity.Hr;
 import com.example.Project06.Entity.Role;
 import com.example.Project06.Entity.User;
 import com.example.Project06.Repository.CompanyRepository;
+import com.example.Project06.Repository.HrRepository;
 import com.example.Project06.Repository.RoleRepository;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.UserService;
@@ -32,17 +34,18 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
 
-    private UserRepository userRepository;
 
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+
+    private final CompanyRepository companyRepository;
+
+    private final RoleRepository roleRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    private final HrRepository hrRepository;
 
     @Override
     public BaseResponseDTO registerAccount(RegisterDto registerDto) {
@@ -83,7 +86,7 @@ public class UserServiceImpl implements UserService {
         roles.add(role);
         user.setRoles(roles);
 
-        if (role.getName().equals("USER")) {
+        if (role.getName().equals("STUDENT")) {
             User profile = new User();
             profile.setFullName(registerDto.getFullName());
             profile.setMoNumber(registerDto.getMoNumber());
@@ -120,6 +123,21 @@ public class UserServiceImpl implements UserService {
             company.setUserUser(user);
             companyRepository.save(company);
 
+        } else if (role.getName().equals("HR") ) {
+            String refNoOfCompany = registerDto.getRefNoOfCompany();
+
+            if (refNoOfCompany == null || refNoOfCompany.trim().isEmpty()) {
+                throw new InvalidHRRegistrationException("HR registration requires a valid refNoOfCompany");
+            }
+
+            Company company = companyRepository.findByRefNo(refNoOfCompany);
+            Hr hr = new Hr();
+            hr.setDesignation(registerDto.getDesignation());
+            hr.setHrstatus(registerDto.getHrstatus());
+            hr.setRefNoOfCompany(registerDto.getRefNoOfCompany());
+            hr.setUserUser(user);
+            hr.setCompanyCompany(company);
+            hrRepository.save(hr);
         }
 
         return user;
@@ -218,11 +236,11 @@ public class UserServiceImpl implements UserService {
 
         if (user != null) {
 
-            String message = "Hello this is Aniket";
+            String message = "Dear User this is the link to reset your password";
 
             String resetLink = resetPasswordLink;
 
-            String subject = "Checking: confirmation";
+            String subject = "Reset Password";
 
             String from = "b.aniket1414@gmail.com";
 

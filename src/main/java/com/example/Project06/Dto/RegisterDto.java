@@ -37,6 +37,9 @@ public class RegisterDto {
     private String companyLocations;
     private String oneCompanyDoc;
     private String refNo;
+    private String refNoOfCompany;
+    private String Hrstatus;
+    private String designation;
 
     public RegisterDto(User user) {
         this.fullName = user.getFullName();
