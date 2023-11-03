@@ -79,6 +79,8 @@ public class AppConfig {
                 .formLogin().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/banner/**").permitAll()
+                .requestMatchers("/bootcamp/**").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
