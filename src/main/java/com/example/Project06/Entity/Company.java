@@ -49,9 +49,9 @@ public class Company {
     private String refNo;
 
     @Column(length = 45)
-    private String status;
+    private String CompanyStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_user_id", nullable = false)
     private User userUser;
 
