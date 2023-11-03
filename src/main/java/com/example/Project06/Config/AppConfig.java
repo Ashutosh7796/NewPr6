@@ -80,6 +80,7 @@ public class AppConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/ItTraining/**").permitAll()
+                .requestMatchers("/ESuggest/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
