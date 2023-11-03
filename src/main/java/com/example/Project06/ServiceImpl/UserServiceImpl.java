@@ -5,14 +5,17 @@ import com.example.Project06.Dto.GetAllUserDTO;
 import com.example.Project06.Dto.PasswordChange;
 import com.example.Project06.Dto.RegisterDto;
 import com.example.Project06.Dto.ResponseDto;
+import com.example.Project06.Entity.Company;
 import com.example.Project06.Entity.Role;
 import com.example.Project06.Entity.User;
+import com.example.Project06.Repository.CompanyRepository;
 import com.example.Project06.Repository.RoleRepository;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.UserService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
 
     private UserRepository userRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -88,9 +94,40 @@ public class UserServiceImpl implements UserService {
             profile.setStatus(registerDto.getStatus());
             profile.setDate(registerDto.getDate());
             userRepository.save(user);
+        } else if (role.getName().equals("COMPANY")) {
+
+            if (isDuplicateGSTNumber(registerDto.getGestnNo())) {
+                throw new DuplicateGSTNumberException("Duplicate GST number");
+            }
+            Company company = new Company();
+            company.setCompanyName(registerDto.getCompanyName());
+            company.setGestnNo(registerDto.getGestnNo());
+            company.setCompanyServices(registerDto.getCompanyServices());
+            company.setCompanyType(registerDto.getCompanyType());
+            company.setCompanyLevel(registerDto.getCompanyLevel());
+            company.setLogo(registerDto.getLogo());
+            company.setOfficeAddress(registerDto.getOfficeAddress());
+            company.setCompanyLocations(registerDto.getCompanyLocations());
+            company.setOneCopmpanyDoc(registerDto.getOneCompanyDoc());
+
+            if (registerDto.getRefNo() == null || registerDto.getRefNo().isEmpty()) {
+                String randomRefNo = RandomStringUtils.randomAlphanumeric(8);
+                company.setRefNo(randomRefNo);
+            } else {
+                company.setRefNo(registerDto.getRefNo());
+            }
+            company.setCompanyStatus(registerDto.getStatus());
+            company.setUserUser(user);
+            companyRepository.save(company);
+
         }
 
         return user;
+    }
+
+    private boolean isDuplicateGSTNumber(String gstNumber) {
+        Company existingCompany = companyRepository.findByGestnNo(gstNumber);
+        return existingCompany != null;
     }
 
     private void validateAccount(RegisterDto registerDto) {

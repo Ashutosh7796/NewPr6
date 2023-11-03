@@ -26,6 +26,17 @@ public class RegisterDto {
     private String gender;
     private Integer id;
     public String roles;
+    private String gestnNo;
+    private String companyServices;
+    private String companyName;
+    private String companyType;
+    private String companyLevel;
+    private String logo;
+    private String CompanyStatus;
+    private String officeAddress;
+    private String companyLocations;
+    private String oneCompanyDoc;
+    private String refNo;
 
     public RegisterDto(User user) {
         this.fullName = user.getFullName();
