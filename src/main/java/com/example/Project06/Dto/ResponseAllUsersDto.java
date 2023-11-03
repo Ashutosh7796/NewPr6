@@ -1,6 +1,5 @@
 package com.example.Project06.Dto;
 
-import com.example.Project06.Entity.User;
 import lombok.Data;
 
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 public class ResponseAllUsersDto {
 
     private String message;
-    private List<RegisterDto> list;
+    private List<GetAllUserDTO> list;
     private String exception;
 
     public ResponseAllUsersDto(String message){
