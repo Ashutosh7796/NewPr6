@@ -65,6 +65,7 @@ public class UserController {
         }
     }
 
+
     @GetMapping("/getAllUsers")
     public ResponseEntity<ResponseAllUsersDto> getAllUser(@RequestParam int pageNo) {
 
