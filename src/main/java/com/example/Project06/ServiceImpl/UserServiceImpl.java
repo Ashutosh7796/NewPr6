@@ -5,14 +5,8 @@ import com.example.Project06.Dto.GetAllUserDTO;
 import com.example.Project06.Dto.PasswordChange;
 import com.example.Project06.Dto.RegisterDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Entity.Company;
-import com.example.Project06.Entity.Hr;
-import com.example.Project06.Entity.Role;
-import com.example.Project06.Entity.User;
-import com.example.Project06.Repository.CompanyRepository;
-import com.example.Project06.Repository.HrRepository;
-import com.example.Project06.Repository.RoleRepository;
-import com.example.Project06.Repository.UserRepository;
+import com.example.Project06.Entity.*;
+import com.example.Project06.Repository.*;
 import com.example.Project06.Service.UserService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
@@ -37,6 +31,8 @@ public class UserServiceImpl implements UserService {
 
 
     private final UserRepository userRepository;
+
+    private final EmailVerificationRepo emailVerificationRepo;
 
 
     private final CompanyRepository companyRepository;
@@ -71,7 +67,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private User insertUser(RegisterDto registerDto) {
+//        EmailVerification emailVerification = emailVerificationRepo.findByEmail(registerDto.getEmail());
         User user = new User();
+//        if (emailVerification != null && !Objects.equals(emailVerification.getStatus(), "Not verified"));
+//            else {
+//            throw new EmailNotVerifiedException("Email not verified");
+//        }
         user.setEmail(registerDto.getEmail());
         user.setMoNumber(registerDto.getMoNumber());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));

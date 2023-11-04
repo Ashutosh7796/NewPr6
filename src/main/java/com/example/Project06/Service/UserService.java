@@ -1,7 +1,5 @@
 package com.example.Project06.Service;
 
-
-
 import com.example.Project06.Dto.GetAllUserDTO;
 import com.example.Project06.Dto.PasswordChange;
 import com.example.Project06.Dto.RegisterDto;
@@ -24,7 +22,6 @@ public interface UserService {
     public RegisterDto getUserById(Integer userId);
 
     List<GetAllUserDTO> getAllUsers(int pageNo);
-
 
 
     ResponseDto forgotPass(String email, String resetPasswordLink, String domain) throws UserNotFoundExceptions;

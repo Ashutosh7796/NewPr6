@@ -2,10 +2,7 @@ package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.RegisterDto;
 import com.example.Project06.Service.UserService;
-import com.example.Project06.exception.BaseException;
-import com.example.Project06.exception.DuplicateGSTNumberException;
-import com.example.Project06.exception.InvalidHRRegistrationException;
-import com.example.Project06.exception.UserAlreadyExistException;
+import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,6 +33,8 @@ public class AccountController {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", "The Gst no Laready Exist"));
         }catch (InvalidHRRegistrationException e){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", e.getMessage()));
+        }catch (EmailNotVerifiedException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("unsuccessful", "Email not verified"));
         }
     }
 }
