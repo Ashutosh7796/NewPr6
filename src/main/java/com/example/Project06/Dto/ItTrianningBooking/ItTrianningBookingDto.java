@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class ItTrianningBookingDto {
 
-    private Integer itTrainingBooking;
+    private Integer itTrainingBookingId;
 
     private Integer userId;
 
@@ -23,13 +23,13 @@ public class ItTrianningBookingDto {
     private LocalDate date;
 
 
-    private ItTraining itTrainingItTraining;
+    private String ItTrainingId;
 
     public ItTrianningBookingDto(ItTrainingBooking itTrainingBooking) {
-        this.itTrainingBooking = itTrainingBooking.getItTrainingBooking();
+        this.itTrainingBookingId = itTrainingBooking.getItTrainingBookingId();
         this.userId = itTrainingBooking.getUserId();
         this.status = itTrainingBooking.getStatus();
         this.date = itTrainingBooking.getDate();
-        this.itTrainingItTraining = itTrainingBooking.getItTrainingItTraining();
+        this.ItTrainingId = itTrainingBooking.getItTrainingId();
     }
 }

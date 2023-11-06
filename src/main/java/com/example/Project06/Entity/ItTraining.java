@@ -48,8 +48,7 @@ public class ItTraining {
     @Column(length = 45)
     private String duration;
 
-    @OneToMany(mappedBy = "itTrainingItTraining")
-    private Set<ItTrainingBooking> itTrainingItTrainingItTrainingBookings;
+
 
 
     public ItTraining(ItTrainingDTO itTrainingDTO) {

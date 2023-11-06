@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
 import java.time.LocalDate;
 
 
@@ -18,7 +17,7 @@ public class ItTrainingBooking {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer itTrainingBooking;
+    private Integer itTrainingBookingId;
 
     @Column
     private Integer userId;
@@ -29,15 +28,17 @@ public class ItTrainingBooking {
     @Column
     private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "it_training_it_training_id", nullable = false)
-    private ItTraining itTrainingItTraining;
+    @Column
+    private String ItTrainingId;
+    public ItTrainingBooking() {
+
+    }
 
     public ItTrainingBooking(ItTrianningBookingDto itTrianningBookingDto) {
-        this.itTrainingBooking = itTrianningBookingDto.getItTrainingBooking();
+        this.itTrainingBookingId = itTrianningBookingDto.getItTrainingBookingId();
         this.userId = itTrianningBookingDto.getUserId();
         this.status = itTrianningBookingDto.getStatus();
         this.date = itTrianningBookingDto.getDate();
-        this.itTrainingItTraining = itTrianningBookingDto.getItTrainingItTraining();
+        this.ItTrainingId = itTrianningBookingDto.getItTrainingId();
     }
 }

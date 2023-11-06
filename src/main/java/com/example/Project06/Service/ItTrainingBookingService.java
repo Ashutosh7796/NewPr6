@@ -7,11 +7,11 @@ import java.security.PublicKey;
 import java.util.List;
 
 
-public interface ItTrianningBookingService {
+public interface ItTrainingBookingService {
 
-    public String AddItTrianningBooking(ItTrianningBookingDto itTrianningBookingDto);
+    public String AddItTrainingBooking(ItTrianningBookingDto itTrianningBookingDto);
 
-    public  String GetbyId(Integer itTrainingBooking);
+    public  ItTrianningBookingDto GetbyId(Integer itTrainingBookingId);
 
     List<ItTrianningBookingDto> AllItBooking();
 
