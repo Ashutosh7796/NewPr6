@@ -8,13 +8,16 @@ import com.example.Project06.Repository.ItTrainingRepo;
 import com.example.Project06.Repository.ItTrianningBookingRepo;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.ItTrainingBookingService;
+import com.example.Project06.exception.ItTrainingBookingException;
 import com.example.Project06.exception.ItTrainingNotFoundException;
 import com.example.Project06.exception.UserNotFoundExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -53,7 +56,7 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
     public ItTrianningBookingDto GetbyId(Integer itTrainingBookingId) {
         Optional<ItTrainingBooking> itTrainingBooking = itTrianningBookingRepo.findById(itTrainingBookingId);
         if (itTrainingBooking.isEmpty()) {
-            throw new ItTrainingNotFoundException("IT Training booking not found");
+            throw new ItTrainingBookingException("IT Training booking not found", HttpStatus.NOT_FOUND);
         }
          ItTrianningBookingDto itTrianningBookingDto =new ItTrianningBookingDto(itTrainingBooking.get());
          itTrianningBookingDto.setItTrainingBookingId(itTrainingBookingId);
@@ -62,13 +65,23 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
 
     @Override
     public List<ItTrianningBookingDto> AllItBooking() {
-        return null;
+        List<ItTrainingBooking> itTrainingBookings = itTrianningBookingRepo.findAll();
+        return itTrainingBookings.stream()
+                .map(ItTrianningBookingDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override
     public String ItBookingDelete(Integer itTrainingBooking) {
-        return null ;
+        ItTrianningBookingDto itTrianningBookingDto = GetbyId(itTrainingBooking);
+        if(itTrianningBookingDto== null ){
+            throw new ItTrainingNotFoundException("IT Training booking ID"+itTrainingBooking + "not found");
+        }
+        itTrainingRepo.deleteById(itTrainingBooking);
+        return "IT Training booking ID"+ itTrainingBooking + "has been deleted successfully";
+
     }
+
 
     @Override
     public List<ItTrianningBookingDto> getByUserId(Integer UserId) {

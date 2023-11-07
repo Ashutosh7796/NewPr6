@@ -9,7 +9,7 @@ public class ResponseSingleItTrainingBookingDTO {
     private Object object;
     private String exception;
 
-    public ResponseSingleItTrainingBookingDTO(String message, String itTrainingNotFound)
+    public ResponseSingleItTrainingBookingDTO(String message)
     {
         this.message = message;
     }
