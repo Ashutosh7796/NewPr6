@@ -29,7 +29,8 @@ public class ItTrainingBooking {
     private LocalDate date;
 
     @Column
-    private String ItTrainingId;
+    private Integer ItTrainingId;
+
     public ItTrainingBooking() {
 
     }

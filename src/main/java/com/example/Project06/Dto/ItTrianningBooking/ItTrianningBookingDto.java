@@ -22,8 +22,8 @@ public class ItTrianningBookingDto {
 
     private LocalDate date;
 
+    private Integer ItTrainingId;
 
-    private String ItTrainingId;
 
     public ItTrianningBookingDto(ItTrainingBooking itTrainingBooking) {
         this.itTrainingBookingId = itTrainingBooking.getItTrainingBookingId();
