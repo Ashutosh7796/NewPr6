@@ -67,9 +67,9 @@ public class Job {
     @Column(length = 45)
     private String seatNo;
 
-    @Column(name = "user_user_id", nullable = false)
-    private Integer userUser;
-
+    @ManyToOne(fetch = FetchType.LAZY ,optional = false)
+    @JoinColumn(name = "user_user_id", nullable = false)
+    private User userUser;
 
 
     public Job(JobDto jobDto ,String logo) {

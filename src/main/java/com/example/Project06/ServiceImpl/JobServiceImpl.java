@@ -29,7 +29,7 @@ public class JobServiceImpl implements JobService {
         User user = userRepository.findById(jobDto.getUser_Id()).orElseThrow(() -> new UserNotFoundExceptions("User Not found", HttpStatus.NOT_FOUND));
         Job job = new Job(jobDto,logo);
 
-        job.setUserUser(user.getUser_id());
+        job.setUserUser(user);
 
         jobRepository.save(job);
         return "Job Added";
