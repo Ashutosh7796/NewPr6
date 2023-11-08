@@ -9,7 +9,6 @@ import com.example.Project06.utils.BaseResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -55,12 +54,10 @@ public class UserController {
         try {
             RUserSingleDto responseDto = new RUserSingleDto("Success");
             responseDto.setResponse(userService.getUserById(userId));
-            responseDto.getResponse().setPassword("");
             return ResponseEntity.status(HttpStatus.OK).body(responseDto);
         } catch (UserNotFoundExceptions e) {
             UserupdateDTO userupdateDTO = new UserupdateDTO("Unsuccess");
             userupdateDTO.setException(String.valueOf(e));
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(userupdateDTO);
 
         }
@@ -110,7 +107,7 @@ public class UserController {
 
             userService.updateResetPassword(token, email);
 
-            String resetPasswordLink = "http://localhost:8080/user/reset-password?token=" + token;
+            String resetPasswordLink = "http://localhost:8080/new/reset-password?token=" + token;
 
             ResponseDto response = userService.forgotPass(email, resetPasswordLink, request.getServerName());
 
@@ -124,8 +121,10 @@ public class UserController {
     @GetMapping("/reset-password")
     public String resetPasswordPage(@RequestParam(name = "token") String token, Model model) {
         model.addAttribute("token", token);
-        return "resetPassword";
+        return "passrest";
     }
+
+
     @PostMapping("/update-password")
     public ResponseEntity<ResponseDto> resetPassword(@RequestBody ResetPassword resetPassword) throws UserNotFoundExceptions {
 

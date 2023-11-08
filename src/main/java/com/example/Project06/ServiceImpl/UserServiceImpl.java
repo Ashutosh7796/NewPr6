@@ -1,10 +1,7 @@
 package com.example.Project06.ServiceImpl;
 
 
-import com.example.Project06.Dto.GetAllUserDTO;
-import com.example.Project06.Dto.PasswordChange;
-import com.example.Project06.Dto.RegisterDto;
-import com.example.Project06.Dto.ResponseDto;
+import com.example.Project06.Dto.*;
 import com.example.Project06.Entity.*;
 import com.example.Project06.Repository.*;
 import com.example.Project06.Service.UserService;
@@ -23,6 +20,7 @@ import org.springframework.util.ObjectUtils;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -372,14 +370,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public RegisterDto getUserById(Integer userId) {
+    public GetSingleUserDto getUserById(Integer userId) {
         Optional<User> user =userRepository.findById(userId);
 
         if(user.isEmpty())
         {
             throw new UserNotFoundExceptions("user not found by id ");
         }
-        RegisterDto userDTO = new RegisterDto(user.get());
+        GetSingleUserDto userDTO = new GetSingleUserDto(user.get());
         return userDTO;
     }
 
