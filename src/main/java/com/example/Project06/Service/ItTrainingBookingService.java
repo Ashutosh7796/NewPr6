@@ -15,11 +15,11 @@ public interface ItTrainingBookingService {
 
     List<ItTrianningBookingDto> AllItBooking();
 
-    public  String ItBookingDelete(Integer itTrainingBooking);
+    public  String ItBookingDelete(Integer itTrainingBookingId);
 
     List<ItTrianningBookingDto> getByUserId(Integer UserId);
 
-    List<ItTrianningBookingDto> getByItTrainingId(Integer itTrainingItTraining);
+
 
 
 
