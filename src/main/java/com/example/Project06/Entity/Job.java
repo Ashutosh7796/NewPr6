@@ -1,19 +1,22 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.Job.JobDto;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
-@Entity
-@Table(name = "Jobs")
 @Getter
 @Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Table(name = "Jobs")
 public class Job {
 
     @Id
-    @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "JobId", nullable = false)
     private Integer jobId;
 
     @Column(length = 250)
@@ -23,7 +26,7 @@ public class Job {
     private String postName;
 
     @Column(length = 45)
-    private String jobLoaction;
+    private String jobLocation;
 
     @Column(length = 200)
     private String address;
@@ -64,8 +67,28 @@ public class Job {
     @Column(length = 45)
     private String seatNo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_user_id", nullable = false)
-    private User userUser;
+    @Column(name = "user_user_id", nullable = false)
+    private Integer userUser;
 
+
+
+    public Job(JobDto jobDto ,String logo) {
+        this.companyName =jobDto.getCompanyName();
+        this.postName = jobDto.getPostName();
+        this.jobLocation = jobDto.getJobLocation();
+        this.address = jobDto.getAddress();
+        this.skills = jobDto.getSkills();
+        this.jobDescription = jobDto.getJobDescription();
+        this.postDate = jobDto.getPostDate();
+        this.salary = jobDto.getSalary();
+        this.noOfPost = jobDto.getNoOfPost();
+        this.logo = logo;
+        this.experienceLevel = jobDto.getExperienceLevel();
+        this.jobType = jobDto.getJobType();
+        this.status = jobDto.getStatus();
+        this.incentives = jobDto.getIncentives();
+        this.essentialRequirements = jobDto.getEssentialRequirements();
+        this.seatNo = jobDto.getSeatNo();
+
+    }
 }

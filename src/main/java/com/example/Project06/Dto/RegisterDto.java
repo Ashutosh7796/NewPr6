@@ -47,7 +47,7 @@ public class RegisterDto {
         this.date = user.getDate();
         this.ref = user.getRef();
         this.gender = user.getGender();
-        this.id=user.getId();
+        this.id=user.getUser_id();
     }
 
 
