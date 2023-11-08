@@ -1,5 +1,6 @@
 package com.example.Project06.Dto.ItTraining;
 
+import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
 import lombok.Data;
 
 import java.util.List;

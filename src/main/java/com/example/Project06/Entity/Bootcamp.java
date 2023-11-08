@@ -1,7 +1,9 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.BootcampDto.BootcampDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import java.util.Set;
 @Table(name = "Bootcamps")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Bootcamp {
 
     @Id
@@ -51,5 +54,17 @@ public class Bootcamp {
 
     @OneToMany(mappedBy = "bootcampBootcamp")
     private Set<BootcampBookings> bootcampBootcampBootcampBookingses;
+    public Bootcamp(BootcampDto bootcampDto) {
 
+        this.bootcampTital = bootcampDto.getBootcampTital();
+        this.bootcampDetails = bootcampDto.getBootcampDetails();
+        this.date = bootcampDto.getDate();
+        this.bootcampDate = bootcampDto.getBootcampDate();
+        this.time = bootcampDto.getTime();
+        this.status = bootcampDto.getStatus();
+        this.location = bootcampDto.getLocation();
+        this.tagLine = bootcampDto.getTagLine();
+        this.photo = bootcampDto.getPhoto();
+        this.price = bootcampDto.getPrice();
+    }
 }
