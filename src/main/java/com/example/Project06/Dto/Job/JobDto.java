@@ -69,7 +69,7 @@ public class JobDto {
         this.incentives = job.getIncentives();
         this.essentialRequirements = job.getEssentialRequirements();
         this.seatNo = job.getSeatNo();
-        this.User_Id=job.getUserUser().getUser_id();
+//        this.User_Id=job.getUserUser().getUser_id();
 
     }
 

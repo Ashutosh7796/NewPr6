@@ -14,7 +14,7 @@ public interface JobService {
 
     public List<JobDto> getAlljobsWithPages();
 
-    public JobDto findById(Integer JobId);
+    public Optional<Job> findById(Integer JobId);
 
     public String deleteById(Integer JobId);
 

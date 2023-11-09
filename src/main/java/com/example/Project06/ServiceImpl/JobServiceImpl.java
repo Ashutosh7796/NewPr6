@@ -6,12 +6,15 @@ import com.example.Project06.Entity.User;
 import com.example.Project06.Repository.JobRepository;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.JobService;
+import com.example.Project06.exception.JobNotFoundException;
 import com.example.Project06.exception.UserNotFoundExceptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class JobServiceImpl implements JobService {
@@ -46,8 +49,15 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public JobDto findById(Integer JobId) {
-        return null;
+    public Optional<Job> findById(Integer JobId) {
+        System.out.println("1");
+        Job job = jobRepository.findByJobId(JobId);
+        System.out.println("ok");
+        if (job == null) {
+            throw new JobNotFoundException("Job not found", HttpStatus.NOT_FOUND);
+        }
+
+        return Optional.of(job);
     }
 
     @Override

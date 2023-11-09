@@ -1,16 +1,17 @@
 package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.Job.JobDto;
+import com.example.Project06.Dto.Job.ResponseSingleJobDto;
 import com.example.Project06.Dto.ResponseDto;
+import com.example.Project06.Entity.Job;
 import com.example.Project06.Service.JobService;
 import com.example.Project06.exception.JobNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping("/job")
 @RestController
@@ -30,4 +31,19 @@ public class JobController {
 
         }
     }
+
+    @GetMapping("/getJob")
+    public ResponseEntity<ResponseSingleJobDto> FindJobById(@RequestParam int JobId) {
+        try {
+            ResponseSingleJobDto responseSingleJobDto = new ResponseSingleJobDto("success");
+             Optional<Job> job = jobService.findById(JobId);
+            responseSingleJobDto.setObject(job);
+            return ResponseEntity.status(HttpStatus.OK).body(responseSingleJobDto);
+        } catch (JobNotFoundException jobNotFoundException) {
+            ResponseSingleJobDto responseSingleJobDto = new ResponseSingleJobDto("unsuccess");
+            responseSingleJobDto.setException("Job not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseSingleJobDto);
+        }
+    }
+
 }
