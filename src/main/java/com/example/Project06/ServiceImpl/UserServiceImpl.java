@@ -401,7 +401,7 @@ public class UserServiceImpl implements UserService {
 
 
             GetAllUserDTO userDto = new GetAllUserDTO (listOfUsers.get(counter));
-            userDto.setId(listOfUsers.get(counter).getId());
+            userDto.setId(listOfUsers.get(counter).getUser_id());
             listOfUsersDto.add(userDto);
 
 

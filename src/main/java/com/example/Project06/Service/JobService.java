@@ -1,0 +1,23 @@
+package com.example.Project06.Service;
+
+import com.example.Project06.Dto.Job.JobDto;
+import com.example.Project06.Entity.Job;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface JobService {
+
+    public String AddJob(JobDto jobDto);
+
+    public String updateJobFields(JobDto jobDto,Integer JobId);
+
+    public List<JobDto> getAlljobsWithPages();
+
+    public JobDto findById(Integer JobId);
+
+    public String deleteById(Integer JobId);
+
+
+
+}

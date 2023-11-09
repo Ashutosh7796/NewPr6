@@ -18,7 +18,7 @@ public class User {
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_id_generator")
     @SequenceGenerator(name = "user_id_generator", initialValue = 1000)
-    private Integer id;
+    private Integer user_id;
 
     @Column(length = 250)
     private String fullName;

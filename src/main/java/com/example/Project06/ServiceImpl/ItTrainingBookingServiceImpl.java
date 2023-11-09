@@ -72,26 +72,27 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
     }
 
     @Override
-    public String ItBookingDelete(Integer itTrainingBooking) {
-        ItTrianningBookingDto itTrianningBookingDto = GetbyId(itTrainingBooking);
+    public String ItBookingDelete(Integer itTrainingBookingId) {
+        ItTrianningBookingDto itTrianningBookingDto = GetbyId(itTrainingBookingId);
         if(itTrianningBookingDto== null ){
-            throw new ItTrainingNotFoundException("IT Training booking ID"+itTrainingBooking + "not found");
+            throw new ItTrainingNotFoundException("IT Training booking ID"+itTrainingBookingId + "not found");
         }
-        itTrainingRepo.deleteById(itTrainingBooking);
-        return "IT Training booking ID"+ itTrainingBooking + "has been deleted successfully";
+        System.out.println("2");
+        itTrianningBookingRepo.deleteById(itTrainingBookingId);
+        System.out.println("1");
+        return "IT Training booking ID"+ itTrainingBookingId + "has been deleted successfully";
 
     }
 
 
     @Override
     public List<ItTrianningBookingDto> getByUserId(Integer UserId) {
-        return null ;
+        List<ItTrainingBooking> itTrainingBookings = itTrianningBookingRepo.findByUserId(UserId);
+        return itTrainingBookings.stream()
+                .map(ItTrianningBookingDto::new)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public List<ItTrianningBookingDto> getByItTrainingId(Integer itTrainingItTraining) {
-        return null ;
-    }
 
 
 }
