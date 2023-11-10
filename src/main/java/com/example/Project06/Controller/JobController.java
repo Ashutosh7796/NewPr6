@@ -55,6 +55,7 @@ public class JobController {
         }
     }
 
+
     @PatchMapping("/update")
     public ResponseEntity<ResponseDto> updateJobFields(@RequestBody JobDto jobDto, @RequestParam Integer JobId) {
         try {
