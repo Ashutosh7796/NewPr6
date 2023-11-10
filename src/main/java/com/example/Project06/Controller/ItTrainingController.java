@@ -78,7 +78,7 @@ public class ItTrainingController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success", result));
     }
     catch (ItTrainingNotFoundException itTrainingNotFoundException){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess", "itTraining Not found"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess", "it Training Not found"));
     }
     }
 }

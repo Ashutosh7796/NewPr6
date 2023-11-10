@@ -37,6 +37,9 @@ public class RegisterDto {
     private String companyLocations;
     private String oneCompanyDoc;
     private String refNo;
+    private String refNoOfCompany;
+    private String Hrstatus;
+    private String designation;
 
     public RegisterDto(User user) {
         this.fullName = user.getFullName();
@@ -47,7 +50,7 @@ public class RegisterDto {
         this.date = user.getDate();
         this.ref = user.getRef();
         this.gender = user.getGender();
-        this.id=user.getId();
+        this.id=user.getUser_id();
     }
 
 

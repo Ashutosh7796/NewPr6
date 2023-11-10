@@ -1,10 +1,11 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDate;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class ItTrainingBooking {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer itTrainingBooking;
+    private Integer itTrainingBookingId;
 
     @Column
     private Integer userId;
@@ -25,10 +26,20 @@ public class ItTrainingBooking {
     private String status;
 
     @Column
-    private OffsetDateTime date;
+    private LocalDate date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "it_training_it_training_id", nullable = false)
-    private ItTraining itTrainingItTraining;
+    @Column
+    private Integer itTrainingId;
 
+    public ItTrainingBooking() {
+
+    }
+
+    public ItTrainingBooking(ItTrianningBookingDto itTrianningBookingDto) {
+        this.itTrainingBookingId = itTrianningBookingDto.getItTrainingBookingId();
+        this.userId = itTrianningBookingDto.getUserId();
+        this.status = itTrianningBookingDto.getStatus();
+        this.date = itTrianningBookingDto.getDate();
+        this.itTrainingId = itTrianningBookingDto.getItTrainingId();
+    }
 }

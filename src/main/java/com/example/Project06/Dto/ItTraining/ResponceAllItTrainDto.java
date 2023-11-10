@@ -4,14 +4,16 @@ import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
-public class ResponseAllItTrainingDTO {
+public class ResponceAllItTrainDto {
     private String message;
-    private List<ItTrainingDTO> list;
+    private List<ItTrianningBookingDto> objects;
     private String exception;
 
-    public ResponseAllItTrainingDTO(String message)
+    public ResponceAllItTrainDto(String message)
     {
         this.message = message;
     }
+
 }
