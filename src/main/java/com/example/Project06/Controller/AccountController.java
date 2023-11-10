@@ -34,7 +34,7 @@ public class AccountController {
         }catch (InvalidHRRegistrationException e){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", e.getMessage()));
         }catch (EmailNotVerifiedException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("unsuccessful", "Email not verified"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("UnSuccessful", "Email not verified"));
         }
     }
 }

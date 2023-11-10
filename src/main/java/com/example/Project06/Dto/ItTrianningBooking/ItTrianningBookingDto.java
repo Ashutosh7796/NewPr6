@@ -2,14 +2,13 @@ package com.example.Project06.Dto.ItTrianningBooking;
 
 import com.example.Project06.Entity.ItTraining;
 import com.example.Project06.Entity.ItTrainingBooking;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
+
 import java.sql.Time;
 import java.time.LocalDate;
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Builder
 public class ItTrianningBookingDto {

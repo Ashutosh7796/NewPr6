@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -93,6 +94,26 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
                 .collect(Collectors.toList());
     }
 
+    public List<ItTrianningBookingDto> getAllByItTrainingId(Integer itTrainingId) {
+        // Assuming you have a repository or data access layer to interact with your data source
+        List<ItTrainingBooking> bookings = itTrianningBookingRepo.findByItTrainingId(itTrainingId);
 
+        // Create a list to store the DTOs
+        List<ItTrianningBookingDto> bookingDtos = new ArrayList<>();
+
+        // Convert the entity objects to DTOs
+        for (ItTrainingBooking booking : bookings) {
+            ItTrianningBookingDto bookingDto = new ItTrianningBookingDto();
+            // Map the properties from the entity to the DTO
+            bookingDto.setItTrainingBookingId(booking.getItTrainingBookingId());
+            bookingDto.setUserId(booking.getUserId());
+            bookingDto.setStatus(booking.getStatus());
+            bookingDto.setDate(booking.getDate());
+            bookingDto.setItTrainingId(booking.getItTrainingId());
+            bookingDtos.add(bookingDto);
+        }
+
+        return bookingDtos;
+    }
 
 }

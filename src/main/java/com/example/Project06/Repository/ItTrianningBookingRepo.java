@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 @EnableJpaRepositories
-public interface   ItTrianningBookingRepo extends JpaRepository<ItTrainingBooking,Integer> {
+public interface ItTrianningBookingRepo extends JpaRepository<ItTrainingBooking,Integer> {
 
     List<ItTrainingBooking> findByUserId(Integer userId);
-
+    List<ItTrainingBooking> findByItTrainingId(Integer itTrainingId);
 
 
 }
