@@ -55,7 +55,7 @@ public class Company {
     @JoinColumn(name = "user_user_id", nullable = false)
     private User userUser;
 
-    @OneToMany(mappedBy = "companyCompany")
+    @OneToMany(mappedBy = "companyCompany",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<Hr> companyCompanyHrs;
 
 }

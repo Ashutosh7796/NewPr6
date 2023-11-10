@@ -7,8 +7,8 @@ import com.example.Project06.exception.PageNotFoundException;
 import com.example.Project06.exception.UserNotFoundExceptions;
 import com.example.Project06.utils.BaseResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
 
     @GetMapping("/index")
@@ -54,12 +54,10 @@ public class UserController {
         try {
             RUserSingleDto responseDto = new RUserSingleDto("Success");
             responseDto.setResponse(userService.getUserById(userId));
-            responseDto.getResponse().setPassword("");
             return ResponseEntity.status(HttpStatus.OK).body(responseDto);
         } catch (UserNotFoundExceptions e) {
             UserupdateDTO userupdateDTO = new UserupdateDTO("Unsuccess");
             userupdateDTO.setException(String.valueOf(e));
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(userupdateDTO);
 
         }
@@ -101,29 +99,22 @@ public class UserController {
     @PostMapping("/forgot-password")
     public ResponseEntity<ResponseDto> forgotPass(HttpServletRequest request) throws UserNotFoundExceptions {
         try {
-            // Retrieve the email from the request
+
             String email = request.getParameter("email");
 
-            // Generate a random token for password reset
             String token = RandomStringUtils.randomAlphabetic(40);
 
-            // Calculate the expiration time (24 hours from now)
             LocalDateTime expirationTime = LocalDateTime.now().plusMinutes(1);
 
-            // Update the user's reset password token in the userService
             userService.updateResetPassword(token, email);
 
-            // Construct the reset password link using the request's server name and token
-            String resetPasswordLink = "http://localhost:8080/reset-password?token=" + token;
+            String resetPasswordLink = "http://localhost:8080/new/reset-password?token=" + token;
 
-            // Call the userService's forgotPass() method to send the password reset email
             ResponseDto response = userService.forgotPass(email, resetPasswordLink, request.getServerName());
 
-            // Return a ResponseEntity object with the appropriate status and message
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("Successful", response.getMessage()));
         } catch (UserNotFoundExceptions e) {
 
-            // Handle the case where the email does not belong to a registered user
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Unsuccessful", "Invalid email. Please register."));
         }
     }
@@ -131,8 +122,10 @@ public class UserController {
     @GetMapping("/reset-password")
     public String resetPasswordPage(@RequestParam(name = "token") String token, Model model) {
         model.addAttribute("token", token);
-        return "resetPassword";
+        return "passrest";
     }
+
+
     @PostMapping("/update-password")
     public ResponseEntity<ResponseDto> resetPassword(@RequestBody ResetPassword resetPassword) throws UserNotFoundExceptions {
 
@@ -140,15 +133,11 @@ public class UserController {
             String token = resetPassword.getToken();
             String newPassword = resetPassword.getPassword();
 
-            // Invoke the userService.updatePassword() method to update the user's password
             ResponseDto response = userService.updatePassword(token, newPassword);
 
-            // Return a ResponseEntity with success status (200) and a ResponseDto with success message
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("Successful", response.getMessage()));
 
         } catch (UserNotFoundExceptions e) {
-            // If a UserNotFoundException is caught, return a ResponseEntity with not found status (404)
-            // and a ResponseDto with an error message
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("Unsuccessful", "Something went wrong"));
         }
     }
