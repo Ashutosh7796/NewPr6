@@ -1,10 +1,13 @@
 package com.example.Project06.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -47,13 +50,15 @@ public class User {
     @Column(length = 45)
     private String gender;
 
+
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "userUser")
-    private Set<Job> userUserJobs;
+    private List<Job> jobs = new LinkedList<>();
 
     @OneToMany(mappedBy = "userUser")
     private Set<StudentProfile> userUserStudentProfiles;

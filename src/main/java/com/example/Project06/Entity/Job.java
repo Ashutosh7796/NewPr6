@@ -1,6 +1,7 @@
 package com.example.Project06.Entity;
 
 import com.example.Project06.Dto.Job.JobDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -67,6 +68,8 @@ public class Job {
     @Column(length = 45)
     private String seatNo;
 
+
+    @JsonIgnoreProperties("userUser")
     @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
     private User userUser;

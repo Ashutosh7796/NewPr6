@@ -12,11 +12,15 @@ public interface JobService {
 
     public String updateJobFields(JobDto jobDto,Integer JobId);
 
-    public List<JobDto> getAlljobsWithPages();
+    public List<JobDto> getAlljob();
 
     public JobDto findById(Integer JobId);
 
+    public Optional<Job> findjobById(Integer JobId);
+
     public String deleteById(Integer JobId);
+
+    public List<JobDto> getJobsByStatus(String status);
 
 
 
