@@ -51,7 +51,7 @@ public class JobDto {
 
 
 
-    public JobDto(Job job,String logo) {
+    public JobDto(Job job) {
         this.jobId = job.getJobId();
         this.companyName = job.getCompanyName();
         this.postName = job.getPostName();
@@ -62,18 +62,18 @@ public class JobDto {
         this.postDate = job.getPostDate();
         this.salary = job.getSalary();
         this.noOfPost = job.getNoOfPost();
-        this.logo = logo;
+        this.logo = job.getLogo();
         this.experienceLevel = job.getExperienceLevel();
         this.jobType = job.getJobType();
         this.status = job.getStatus();
         this.incentives = job.getIncentives();
         this.essentialRequirements = job.getEssentialRequirements();
         this.seatNo = job.getSeatNo();
-//        this.User_Id=job.getUserUser().getUser_id();
+        this.User_Id=job.getUserUser().getUser_id();
 
     }
 
-    public JobDto() {
 
-    }
+
+
 }
