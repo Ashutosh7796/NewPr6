@@ -1,16 +1,9 @@
 package com.example.Project06.ServiceImpl;
 
 
-import com.example.Project06.Dto.GetAllUserDTO;
-import com.example.Project06.Dto.PasswordChange;
-import com.example.Project06.Dto.RegisterDto;
-import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Entity.Company;
-import com.example.Project06.Entity.Role;
-import com.example.Project06.Entity.User;
-import com.example.Project06.Repository.CompanyRepository;
-import com.example.Project06.Repository.RoleRepository;
-import com.example.Project06.Repository.UserRepository;
+import com.example.Project06.Dto.*;
+import com.example.Project06.Entity.*;
+import com.example.Project06.Repository.*;
 import com.example.Project06.Service.UserService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
@@ -27,22 +20,26 @@ import org.springframework.util.ObjectUtils;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    @Autowired
 
-    private UserRepository userRepository;
 
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final EmailVerificationRepo emailVerificationRepo;
+
+
+    private final CompanyRepository companyRepository;
+
+    private final RoleRepository roleRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    private final HrRepository hrRepository;
 
     @Override
     public BaseResponseDTO registerAccount(RegisterDto registerDto) {
@@ -68,7 +65,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private User insertUser(RegisterDto registerDto) {
+//        EmailVerification emailVerification = emailVerificationRepo.findByEmail(registerDto.getEmail());
         User user = new User();
+//        if (emailVerification != null && !Objects.equals(emailVerification.getStatus(), "Not verified"));
+//            else {
+//            throw new EmailNotVerifiedException("Email not verified");
+//        }
         user.setEmail(registerDto.getEmail());
         user.setMoNumber(registerDto.getMoNumber());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
@@ -83,7 +85,7 @@ public class UserServiceImpl implements UserService {
         roles.add(role);
         user.setRoles(roles);
 
-        if (role.getName().equals("USER")) {
+        if (role.getName().equals("STUDENT")) {
             User profile = new User();
             profile.setFullName(registerDto.getFullName());
             profile.setMoNumber(registerDto.getMoNumber());
@@ -120,6 +122,21 @@ public class UserServiceImpl implements UserService {
             company.setUserUser(user);
             companyRepository.save(company);
 
+        } else if (role.getName().equals("HR") ) {
+            String refNoOfCompany = registerDto.getRefNoOfCompany();
+
+            if (refNoOfCompany == null || refNoOfCompany.trim().isEmpty()) {
+                throw new InvalidHRRegistrationException("HR registration requires a valid refNoOfCompany");
+            }
+
+            Company company = companyRepository.findByRefNo(refNoOfCompany);
+            Hr hr = new Hr();
+            hr.setDesignation(registerDto.getDesignation());
+            hr.setHrstatus(registerDto.getHrstatus());
+            hr.setRefNoOfCompany(registerDto.getRefNoOfCompany());
+            hr.setUserUser(user);
+            hr.setCompanyCompany(company);
+            hrRepository.save(hr);
         }
 
         return user;
@@ -218,11 +235,11 @@ public class UserServiceImpl implements UserService {
 
         if (user != null) {
 
-            String message = "Hello this is Aniket";
+            String message = "Dear User this is the link to reset your password";
 
             String resetLink = resetPasswordLink;
 
-            String subject = "Checking: confirmation";
+            String subject = "Reset Password";
 
             String from = "b.aniket1414@gmail.com";
 
@@ -353,14 +370,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public RegisterDto getUserById(Integer userId) {
+    public GetSingleUserDto getUserById(Integer userId) {
         Optional<User> user =userRepository.findById(userId);
 
         if(user.isEmpty())
         {
             throw new UserNotFoundExceptions("user not found by id ");
         }
-        RegisterDto userDTO = new RegisterDto(user.get());
+        GetSingleUserDto userDTO = new GetSingleUserDto(user.get());
         return userDTO;
     }
 

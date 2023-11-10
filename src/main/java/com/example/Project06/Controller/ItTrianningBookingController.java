@@ -1,5 +1,6 @@
 package com.example.Project06.Controller;
 
+import com.example.Project06.Dto.ItTraining.ResponceAllItTrainDto;
 import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
 import com.example.Project06.Dto.ItTrianningBooking.ResponseAllItTrainingBookingDTO;
 import com.example.Project06.Dto.ItTrianningBooking.ResponseSingleItTrainingBookingDTO;
@@ -66,6 +67,22 @@ public class ItTrianningBookingController {
             responseAllItTrainingBookingDTO.setException("IT Training booking not found");
             return (ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseAllItTrainingBookingDTO));
 
+        }
+    }
+
+    @GetMapping("/ByItTrainingId")
+    public ResponseEntity<ResponceAllItTrainDto> getAllItTrainingBookingsByItTrainingId(@RequestParam Integer itTrainingId) {
+        try {
+            ResponceAllItTrainDto responseAllItTrainingBookingDTO = new ResponceAllItTrainDto("success");
+
+            List<ItTrianningBookingDto> itTrainingBookings = itTrainingBookingService.getAllByItTrainingId(itTrainingId);
+            responseAllItTrainingBookingDTO.setObjects(itTrainingBookings);
+
+            return ResponseEntity.status(HttpStatus.OK).body(responseAllItTrainingBookingDTO);
+        } catch (ItTrainingBookingException itTrainingBookingException) {
+            ResponceAllItTrainDto responseAllItTrainingBookingDTO = new ResponceAllItTrainDto("unsuccess");
+            responseAllItTrainingBookingDTO.setException("bookings not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseAllItTrainingBookingDTO);
         }
     }
 

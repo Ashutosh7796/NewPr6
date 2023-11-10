@@ -29,7 +29,7 @@ public class ItTrainingBooking {
     private LocalDate date;
 
     @Column
-    private Integer ItTrainingId;
+    private Integer itTrainingId;
 
     public ItTrainingBooking() {
 
@@ -40,6 +40,6 @@ public class ItTrainingBooking {
         this.userId = itTrianningBookingDto.getUserId();
         this.status = itTrianningBookingDto.getStatus();
         this.date = itTrianningBookingDto.getDate();
-        this.ItTrainingId = itTrianningBookingDto.getItTrainingId();
+        this.itTrainingId = itTrianningBookingDto.getItTrainingId();
     }
 }

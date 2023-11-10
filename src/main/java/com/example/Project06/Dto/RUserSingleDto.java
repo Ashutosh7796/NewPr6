@@ -6,7 +6,7 @@ import lombok.Data;
 public class RUserSingleDto {
 
     private String status;
-    private RegisterDto Response;
+    private GetSingleUserDto Response;
 
     public RUserSingleDto(String status) {
         this.status = status;

@@ -19,19 +19,19 @@ public class Hr {
     private Integer hrId;
 
     @Column(length = 45)
-    private String digignastion;
+    private String designation;
 
     @Column(length = 45)
-    private String status;
+    private String Hrstatus;
 
     @Column(length = 45)
     private String refNoOfCompany;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "company_company_id", nullable = false)
     private Company companyCompany;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_user_id", nullable = false)
     private User userUser;
 
