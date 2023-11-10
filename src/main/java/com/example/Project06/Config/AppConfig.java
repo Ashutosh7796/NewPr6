@@ -23,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -81,7 +82,8 @@ public class AppConfig {
                 .requestMatchers("/account/**").permitAll()
                 .requestMatchers("/banner/**").permitAll()
                 .requestMatchers("/bootcamp/**").permitAll()
-
+                .requestMatchers("/hr/**").permitAll()
+                .requestMatchers("/bootcampbookings/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)

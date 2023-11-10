@@ -1,5 +1,6 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.hr.HrDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,4 +39,13 @@ public class Hr {
     @OneToMany(mappedBy = "hrHr")
     private Set<HrCall> hrHrHrCalls;
 
+    public Hr() {
+    }
+
+    public Hr(HrDto hrDto) {
+       this.digignastion = hrDto.getDigignastion();
+        this.status = hrDto.getStatus();
+        this.refNoOfCompany = hrDto.getRefNoOfCompany();
+
+    }
 }

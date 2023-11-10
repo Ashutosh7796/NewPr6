@@ -22,9 +22,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<!-- Swagger 2 dependencies -->
+
+
 
 		<dependency>
 			<groupId>com.cloudinary</groupId>
@@ -33,7 +39,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 
 		<dependency>
@@ -148,6 +155,10 @@
 			<version>0.11.2</version>
 			<scope>runtime</scope>
 		</dependency>
+
+
+
+
 	</dependencies>
 
 	<build>
