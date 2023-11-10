@@ -49,13 +49,13 @@ public class BootcampImp implements IBootcamp {
         bootcamp.setBootcampTital(bootcampTital.length()>0 ? bootcampTital : bootcamp.getBootcampTital());
 //        bootcamp.setDate(date.length()>0 ? bootcampTital : bootcamp.getBootcampTital());
 //        bootcamp.setBootcampDate(bootcampTital.length()>0 ? bootcampTital : bootcamp.getBootcampTital());
-        bootcamp.setTime(time.length()>0 ? bootcampTital : bootcamp.getTime());
-        bootcamp.setStatus(status.length()>0 ? bootcampTital : bootcamp.getStatus());
-        bootcamp.setLocation(location.length()>0 ? bootcampTital : bootcamp.getLocation());
-        bootcamp.setTagLine(tagLine.length()>0 ? bootcampTital : bootcamp.getTagLine());
-        bootcamp.setPhoto(photo.length()>0 ? bootcampTital : bootcamp.getPhoto());
-        bootcamp.setPrice(price.length()>0 ? bootcampTital : bootcamp.getPrice());
-
+        bootcamp.setTime(time.length()>0 ? time : bootcamp.getTime());
+        bootcamp.setStatus(status.length()>0 ? status : bootcamp.getStatus());
+        bootcamp.setLocation(location.length()>0 ? location : bootcamp.getLocation());
+        bootcamp.setTagLine(tagLine.length()>0 ? tagLine : bootcamp.getTagLine());
+        bootcamp.setPhoto(photo.length()>0 ? photo : bootcamp.getPhoto());
+        bootcamp.setPrice(price.length()>0 ? price : bootcamp.getPrice());
+        System.err.println(bootcamp.toString());
         bootcampRepo.save(bootcamp);
 
 
