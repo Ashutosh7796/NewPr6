@@ -1,9 +1,12 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.MentorProfileDto.MentorProfileDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -11,7 +14,8 @@ import java.util.Set;
 @Table(name = "Mentors")
 @Getter
 @Setter
-public class Mentor {
+@NoArgsConstructor
+public class Mentor  {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -51,14 +55,25 @@ public class Mentor {
     @Column(length = 45)
     private String cost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_user_id", nullable = false)
-    private User userUser;
 
-    @OneToMany(mappedBy = "mentorMentor")
-    private Set<MentorProgram> mentorMentorMentorPrograms;
+    @Column(name = "user_user_id")
+    private Integer userUser;
 
-    @OneToMany(mappedBy = "mentorMentor")
-    private Set<MentorFeedback> mentorMentorMentorFeedbacks;
 
+
+    public Mentor(MentorProfileDto mentorProfileDto) {
+
+        this.specialityOfMentor = mentorProfileDto.getSpecialityOfMentor();
+        this.skills = mentorProfileDto.getSkills();
+        this.subject = mentorProfileDto.getSubject();
+        this.mentorInfo = mentorProfileDto.getMentorInfo();
+        this.achievements = mentorProfileDto.getAchievements();
+        this.socalMediaLinkF = mentorProfileDto.getSocalMediaLinkF();
+        this.aboutAs = mentorProfileDto.getAboutAs();
+        this.socalMediaLinkL = mentorProfileDto.getSocalMediaLinkL();
+        this.socalMediaLinkF1 = mentorProfileDto.getSocalMediaLinkF1();
+        this.socalMediaLinkInsta = mentorProfileDto.getSocalMediaLinkInsta();
+        this.cost = mentorProfileDto.getCost();
+        this.userUser = mentorProfileDto.getUserUser();
+    }
 }

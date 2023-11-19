@@ -85,9 +85,6 @@ public class User {
     private Set<Feedback> userUserFeedbacks;
 
     @OneToMany(mappedBy = "userUser")
-    private Set<Mentor> userUserMentors;
-
-    @OneToMany(mappedBy = "userUser")
     private Set<MentorBokSchedule> userUserMentorBokSchedules;
 
 }
