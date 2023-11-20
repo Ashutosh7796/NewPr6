@@ -43,8 +43,8 @@ public class Hr {
     }
 
     public Hr(HrDto hrDto) {
-       this.digignastion = hrDto.getDigignastion();
-        this.status = hrDto.getStatus();
+       this.designation = hrDto.getDigignastion();
+        this.Hrstatus = hrDto.getStatus();
         this.refNoOfCompany = hrDto.getRefNoOfCompany();
 
     }

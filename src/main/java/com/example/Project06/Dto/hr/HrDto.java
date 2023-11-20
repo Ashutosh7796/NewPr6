@@ -26,10 +26,10 @@ public class HrDto {
     }
 
     public HrDto(Hr hr) {
-      this.digignastion = hr.getDigignastion();
-        this.status = hr.getStatus();
+      this.digignastion = hr.getDesignation();
+        this.status = hr.getHrstatus();
         this.refNoOfCompany = hr.getRefNoOfCompany();
         this.companyId = hr.getCompanyCompany().getCompanyId();
-        this.userId = hr.getUserUser().getId();
+        this.userId = hr.getUserUser().getUser_id();
     }
 }

@@ -52,8 +52,8 @@ public class HrImp implements IHr {
     public String updateBootcampDetails(String digignastion, String status, String refNoOfCompany, Integer hrId) {
         Hr hr = hrRepo.findById(hrId).orElseThrow(() -> new RuntimeException("hr details Not found By Id"));
 
-        hr.setDigignastion(digignastion.length()>0 ? digignastion : hr.getDigignastion());
-        hr.setStatus(status.length()>0 ? status : hr.getStatus());
+        hr.setDesignation(digignastion.length()>0 ? digignastion : hr.getDesignation());
+        hr.setHrstatus(status.length()>0 ? status : hr.getHrstatus());
         hr.setRefNoOfCompany(refNoOfCompany.length()>0 ? refNoOfCompany : hr.getRefNoOfCompany());
         hrRepo.save(hr);
         return "hr details updated";

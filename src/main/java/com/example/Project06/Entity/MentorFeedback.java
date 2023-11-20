@@ -22,8 +22,7 @@ public class MentorFeedback {
     @Column
     private Integer userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_mentor_id", nullable = false)
-    private Mentor mentorMentor;
+    @JoinColumn(name = "mentor_mentor_id")
+    private Integer mentorId;
 
 }
