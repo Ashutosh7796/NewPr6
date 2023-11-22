@@ -85,8 +85,9 @@ public class AppConfig {
                 .requestMatchers("/hr/**").permitAll()
                 .requestMatchers("/bootcampbookings/**").permitAll()
                 .requestMatchers("/mentorfeedback/**").permitAll()
-
+                .requestMatchers("/Events/**").permitAll()
                 .requestMatchers("/mentor/**").permitAll()
+                .requestMatchers("/Blogs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
