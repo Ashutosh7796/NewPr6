@@ -93,6 +93,9 @@ public class AppConfig {
                 .requestMatchers("/ItTraining/**").permitAll()
                 .requestMatchers("/job/**").permitAll()
                 .requestMatchers("/Events/**").permitAll()
+=======
+                .requestMatchers("/mentorprogram/**").permitAll()
+
                 .requestMatchers("/mentor/**").permitAll()
                 .requestMatchers("/Blogs/**").permitAll()
                 .anyRequest().authenticated()
