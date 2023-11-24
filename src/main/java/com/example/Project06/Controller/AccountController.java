@@ -26,11 +26,11 @@ public class AccountController {
            BaseResponseDTO response= userService.registerAccount(registerDto);
             return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseDTO("Successful",response.getMessage()));
         }catch (UserAlreadyExistException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful","User already exists"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful","User with Email already exists"));
         }catch (BaseException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful","Invalid role"));
         }catch (DuplicateGSTNumberException e){
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", "The Gst no Laready Exist"));
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", "The Gst no Already Exist"));
         }catch (InvalidHRRegistrationException e){
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccess", e.getMessage()));
         }catch (EmailNotVerifiedException e){
