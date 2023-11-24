@@ -1,8 +1,10 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.MentorProgramDto.MentorProgramDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +15,7 @@ import java.util.Set;
 @Table(name = "MentorPrograms")
 @Getter
 @Setter
+@ToString
 public class MentorProgram {
 
     @Id
@@ -41,11 +44,23 @@ public class MentorProgram {
     @Column(length = 45)
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_mentor_id", nullable = false)
-    private Mentor mentorMentor;
+    @Column(name = "mentor_mentor_id")
+    private Integer mentorMentor;
 
     @OneToMany(mappedBy = "mentorProgramMentorProgram")
     private Set<MentorProgramBookings> mentorProgramMentorProgramMentorProgramBookingses;
 
+    public MentorProgram() {
+    }
+
+    public MentorProgram(MentorProgramDto mentorProgramDto) {
+        this.programName = mentorProgramDto.getProgramName();
+        this.programDetails = mentorProgramDto.getProgramDetails();
+        this.date = mentorProgramDto.getDate();
+        this.price = mentorProgramDto.getPrice();
+        this.time = mentorProgramDto.getTime();
+        this.mentorProgramcol = mentorProgramDto.getMentorProgramcol();
+        this.status = mentorProgramDto.getStatus();
+        this.mentorMentor = mentorProgramDto.getMentorId();
+    }
 }

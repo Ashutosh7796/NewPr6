@@ -1,7 +1,10 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.Event.EventsDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -9,9 +12,11 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "Eventses")
+@Table(name = "Events")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Events {
 
     @Id
@@ -45,5 +50,17 @@ public class Events {
 
     @OneToMany(mappedBy = "eventsEventsid")
     private Set<EventBooking> eventsEventsidEventBookings;
+
+         public Events(EventsDto eventsDto) {
+        this.eventsid = eventsDto.getEventsid();
+        this.eventName = eventsDto.getEventName();
+        this.eventDetails = eventsDto.getEventDetails();
+        this.eventTagline = eventsDto.getEventTagline();
+        this.eventDate = eventsDto.getEventDate();
+        this.date = eventsDto.getDate();
+        this.status = eventsDto.getStatus();
+        this.photo = eventsDto.getPhoto();
+        this.price = eventsDto.getPrice();
+    }
 
 }
