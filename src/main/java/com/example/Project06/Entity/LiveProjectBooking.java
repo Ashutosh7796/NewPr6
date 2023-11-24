@@ -16,7 +16,7 @@ public class LiveProjectBooking {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer liveProjectBooking;
+    private Integer liveProjectBookingId;
 
     @Column
     private LocalDate date;
@@ -26,5 +26,8 @@ public class LiveProjectBooking {
 
     @Column(length = 45)
     private String userId;
+
+    @Column
+    private Integer liveProjectID;
 
 }
