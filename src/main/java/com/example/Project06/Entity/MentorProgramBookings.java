@@ -1,5 +1,7 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.MentorProgramBookingDTO.MentorProgramBookingDto;
+import com.example.Project06.Repository.MentorProgramBookingRepo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,8 +29,16 @@ public class MentorProgramBookings {
     @Column(length = 45)
     private String mentorProgramBookingscol;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mentor_program_mentor_program_id", nullable = false)
-    private MentorProgram mentorProgramMentorProgram;
+    @Column(name = "mentor_program_mentor_program_id", nullable = false)
+    private Integer mentorProgramMentorProgram;
 
+    public MentorProgramBookings() {
+    }
+
+    public MentorProgramBookings(MentorProgramBookingDto mentorProgramBookingDto) {
+        this.date = mentorProgramBookingDto.getDate();
+        this.userId = mentorProgramBookingDto.getUserId();
+        this.mentorProgramBookingscol = mentorProgramBookingDto.getMentorProgramBookingscol();
+        this.mentorProgramMentorProgram = mentorProgramBookingDto.getMentorProgramId();
+    }
 }

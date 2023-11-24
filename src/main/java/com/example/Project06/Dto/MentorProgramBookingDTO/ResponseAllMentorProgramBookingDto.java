@@ -1,15 +1,16 @@
-package com.example.Project06.Dto.MentorProfileDto;
+package com.example.Project06.Dto.MentorProgramBookingDTO;
 
 import com.example.Project06.Entity.Mentor;
+import com.example.Project06.Entity.MentorProgramBookings;
 import lombok.Data;
 
 import java.util.List;
 @Data
-public class ResponseAllMentorDto {
+public class ResponseAllMentorProgramBookingDto {
     private String status;
-    private List<Mentor> response;
+    private List<MentorProgramBookings> response;
 
-    public ResponseAllMentorDto(String status) {
+    public ResponseAllMentorProgramBookingDto(String status) {
         this.status = status;
     }
 }

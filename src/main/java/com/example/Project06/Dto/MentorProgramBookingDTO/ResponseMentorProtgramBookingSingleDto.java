@@ -1,14 +1,14 @@
 package com.example.Project06.Dto.MentorProgramBookingDTO;
 
-import com.example.Project06.Entity.Mentor;
+import com.example.Project06.Entity.MentorProgramBookings;
 import lombok.Data;
 
 @Data
-public class ResponseMentorSingleDto {
+public class ResponseMentorProtgramBookingSingleDto {
     private String status;
-    private Mentor response;
+    private MentorProgramBookings response;
 
-    public ResponseMentorSingleDto(String status) {
+    public ResponseMentorProtgramBookingSingleDto(String status) {
         this.status = status;
     }
 }
