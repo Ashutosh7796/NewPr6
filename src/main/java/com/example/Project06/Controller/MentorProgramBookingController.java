@@ -54,7 +54,6 @@ public class MentorProgramBookingController {
     }
 
     @GetMapping("/getAll")
-
     public ResponseEntity<?> getById() {
         try {
             ResponseAllMentorProgramBookingDto responseObjectDto = new ResponseAllMentorProgramBookingDto("success");
