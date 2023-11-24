@@ -1,7 +1,9 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.BlogDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -9,6 +11,7 @@ import lombok.Setter;
 @Table(name = "Blogses")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Blogs {
 
     @Id
@@ -22,4 +25,7 @@ public class Blogs {
     @Column(length = 250)
     private String blog;
 
+    public Blogs(BlogDto blogDto) {
+        this.blog = blogDto.getBlog();
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.LiveProject.LiveProjectDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ public class LiveProject {
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer liveProject;
+    private Integer liveProjectID;
 
     @Column(length = 45)
     private String domain;
@@ -43,4 +44,19 @@ public class LiveProject {
     @Column(length = 250)
     private String keySkill;
 
+    public LiveProject() {
+    }
+
+    public LiveProject(LiveProjectDto liveProjectDto) {
+        this.liveProjectID = liveProjectDto.getLiveProjectID();
+        this.domain = liveProjectDto.getDomain();
+        this.internshipType = liveProjectDto.getInternshipType();
+        this.internshipDuration = liveProjectDto.getInternshipDuration();
+        this.pointOfContact = liveProjectDto.getPointOfContact();
+        this.pointOfContact01 = liveProjectDto.getPointOfContact01();
+        this.company = liveProjectDto.getCompany();
+        this.location = liveProjectDto.getLocation();
+        this.jobDescription = liveProjectDto.getJobDescription();
+        this.keySkill = liveProjectDto.getKeySkill();
+    }
 }
