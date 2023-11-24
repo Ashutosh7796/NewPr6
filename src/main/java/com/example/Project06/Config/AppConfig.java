@@ -87,6 +87,12 @@ public class AppConfig {
                 .requestMatchers("/mentorfeedback/**").permitAll()
 
                 .requestMatchers("/mentor/**").permitAll()
+                .requestMatchers("/plan/**").permitAll()
+                .requestMatchers("/LiveProject/**").permitAll()
+                .requestMatchers("/job/**").permitAll()
+                .requestMatchers("/ItTrainingBooking/**").permitAll()
+                .requestMatchers("/ItTraining/**").permitAll()
+                .requestMatchers("/ESuggest/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
