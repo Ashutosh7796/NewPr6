@@ -4,8 +4,6 @@ import lombok.Data;
 @Data
 public class BlogUpdateDto {
 
-
-
         private String status;
         private String exception;
         private String message;
