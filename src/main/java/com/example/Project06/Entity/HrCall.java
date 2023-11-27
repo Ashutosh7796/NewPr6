@@ -1,7 +1,9 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.HrCall.HrCallDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,18 +14,16 @@ import java.time.LocalTime;
 @Table(name = "HrCalls")
 @Getter
 @Setter
+@NoArgsConstructor
 public class HrCall {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer hrCall;
+    private Integer hrCallId;
 
     @Column
     private Integer userId;
-
-    @Column
-    private Integer selfId;
 
     @Column
     private LocalDate date;
@@ -32,7 +32,7 @@ public class HrCall {
     private LocalTime time;
 
     @Column(length = 45)
-    private String poastion;
+    private String position;
 
     @Column(length = 45)
     private String status;
@@ -44,4 +44,12 @@ public class HrCall {
     @JoinColumn(name = "hr_hr_id", nullable = false)
     private Hr hrHr;
 
+    public HrCall(HrCallDto hrCallDto) {
+        this.userId = hrCallDto.getUserId();
+        this.date = hrCallDto.getDate();
+        this.time = hrCallDto.getTime();
+        this.position = hrCallDto.getPosition();
+        this.status = hrCallDto.getStatus();
+        this.respond = hrCallDto.getResponse();
+    }
 }
