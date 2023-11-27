@@ -85,6 +85,7 @@ public class AppConfig {
                 .requestMatchers("/hr/**").permitAll()
                 .requestMatchers("/bootcampbookings/**").permitAll()
                 .requestMatchers("/mentorfeedback/**").permitAll()
+                .requestMatchers("/LiveProjectBooking/**").permitAll()
 
                 .requestMatchers("/mentor/**").permitAll()
                 .requestMatchers("/plan/**").permitAll()

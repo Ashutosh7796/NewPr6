@@ -1,9 +1,5 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.ItTraining.ResponceAllItTrainDto;
-import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
-import com.example.Project06.Dto.ItTrianningBooking.ResponseAllItTrainingBookingDTO;
-import com.example.Project06.Dto.ItTrianningBooking.ResponseSingleItTrainingBookingDTO;
 import com.example.Project06.Dto.ResponseDto;
 import com.example.Project06.Dto.liveProjectBooking.LiveProjectBookingDto;
 import com.example.Project06.Dto.liveProjectBooking.ResponseAllLiveProjectBookingDto;
