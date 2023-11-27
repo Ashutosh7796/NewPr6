@@ -1,5 +1,6 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.liveProjectBooking.LiveProjectBookingDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,4 +31,14 @@ public class LiveProjectBooking {
     @Column
     private Integer liveProjectID;
 
+    public LiveProjectBooking() {
+    }
+
+    public LiveProjectBooking(LiveProjectBookingDto liveProjectBookingDto) {
+        this.liveProjectBookingId = liveProjectBookingDto.getLiveProjectBookingId();
+        this.date = liveProjectBookingDto.getDate();
+        this.status = liveProjectBookingDto.getStatus();
+        this.userId = liveProjectBookingDto.getUserId();
+        this.liveProjectID = liveProjectBookingDto.getLiveProjectID();
+    }
 }

@@ -93,6 +93,7 @@ public class AppConfig {
                 .requestMatchers("/ItTrainingBooking/**").permitAll()
                 .requestMatchers("/ItTraining/**").permitAll()
                 .requestMatchers("/ESuggest/**").permitAll()
+                .requestMatchers("/LiveProjectBooking/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
