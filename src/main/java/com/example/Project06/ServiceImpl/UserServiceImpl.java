@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
 
     private final EmailVerificationRepo emailVerificationRepo;
 
-
     private final CompanyRepository companyRepository;
 
     private final RoleRepository roleRepository;

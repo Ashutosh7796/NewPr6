@@ -16,29 +16,20 @@ public class UserDetailsCustom implements UserDetails {
 
     private String password;
 
-    private String firstName;
+    private String FullName;
 
-    private String dealerId;
-
-    private String userId;
-
-    private  String userProfileId;
+    private Integer userId;
 
 
-    public String getUserId() {
+
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public String getUserProfileId() {
-        return userProfileId;
-    }
 
-    public String getDealerId() {
-        return dealerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return FullName;
     }
 
 

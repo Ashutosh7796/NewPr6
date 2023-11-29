@@ -46,20 +46,14 @@ public class UserDetailsServiceCustom implements UserDetailsService {
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
 
-        String firstName = null;
-        String dealerId = null;
-        String userId = null;
-        String userProfileId = null;
-
-
+        String FullName = user.getFullName();
+        Integer userId = user.getUser_id();
 
         return new UserDetailsCustom(
                 user.getEmail(),
                 user.getPassword(),
-                firstName,
-                dealerId,
+                FullName,
                 userId,
-                userProfileId,
                 authorities
         );
 

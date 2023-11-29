@@ -13,9 +13,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.util.StreamUtils;
 
 
 @RestController
@@ -24,12 +34,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-
-
-    @GetMapping("/index")
-    public ResponseEntity<String> index(Principal principal){
-        return ResponseEntity.ok("Welcome to user page : " + principal.getName());
-    }
 
     @PatchMapping("/updateUserDetails")
     public ResponseEntity<?> updateDetails(@RequestBody RegisterDto userDTO) {
@@ -108,7 +112,7 @@ public class UserController {
 
             userService.updateResetPassword(token, email);
 
-            String resetPasswordLink = "http://localhost:8080/new/reset-password?token=" + token;
+            String resetPasswordLink = "http://localhost:8080/user/reset-password?token=" + token;
 
             ResponseDto response = userService.forgotPass(email, resetPasswordLink, request.getServerName());
 
@@ -120,10 +124,18 @@ public class UserController {
     }
 
     @GetMapping("/reset-password")
-    public String resetPasswordPage(@RequestParam(name = "token") String token, Model model) {
-        model.addAttribute("token", token);
-        return "passrest";
+    public ResponseEntity<String> resetPasswordPage(@RequestParam(name = "token") String token) {
+        try {
+            ClassPathResource resource = new ClassPathResource("templates/reset-password.html");
+            String htmlContent = new String(Files.readAllBytes(Paths.get(resource.getURI())), StandardCharsets.UTF_8);
+            return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(htmlContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error loading HTML file");
+        }
     }
+
+
 
 
     @PostMapping("/update-password")
