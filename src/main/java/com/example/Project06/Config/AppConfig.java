@@ -65,6 +65,7 @@ public class AppConfig {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
