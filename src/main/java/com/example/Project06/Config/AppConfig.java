@@ -100,7 +100,7 @@ public class AppConfig {
                 .requestMatchers("/company/**").permitAll()
                 .requestMatchers("/Events/**").permitAll()
                 .requestMatchers("/user/**").permitAll()
-                .requestMatchers("/mentorprogram/**").permitAll()
+                .requestMatchers("/mentorprogramgit/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)

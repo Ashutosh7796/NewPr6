@@ -64,12 +64,15 @@ public class JwtServiceImpl implements JwtService {
 
         log.info("Roles: {} ", roles);
 
-        return Jwts.builder()
+        return Jwts
+                .builder()
                 .setSubject(userDetailsCustom.getUsername())
-                .claim("authorities" , userDetailsCustom.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .claim("roles" , roles)
+                .claim("userId", userDetailsCustom.getUserId())
+                .claim("fullName", userDetailsCustom.getFullName())
+                .claim("authorities", userDetailsCustom.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim("roles", roles)
                 .claim("isEnable", userDetailsCustom.isEnabled())
-                .setIssuedAt(Date.from(now))
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(Date.from(now.plusSeconds(jwtConfig.getExpiration())))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
