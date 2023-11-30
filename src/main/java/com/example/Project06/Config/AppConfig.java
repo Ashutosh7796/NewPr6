@@ -102,6 +102,7 @@ public class AppConfig {
                 .requestMatchers("/Events/**").permitAll()
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/mentorprogramgit/**").permitAll()
+                .requestMatchers("/filter/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
