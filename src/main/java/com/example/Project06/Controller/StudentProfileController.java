@@ -39,11 +39,12 @@ public class StudentProfileController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful", e.getMessage()));
         }
     }
+
     @GetMapping("/getById")
-    public ResponseEntity<?> getProfileById(@RequestParam Integer studnetProfileId) {
+    public ResponseEntity<?> getProfileById(@RequestParam Integer userId) {
         try {
             SingleProfileDto responseDto = new SingleProfileDto("Success");
-            responseDto.setResponse(studentProfileService.getProfileById(studnetProfileId));
+            responseDto.setResponse(studentProfileService.getProfileById(userId));
             return ResponseEntity.status(HttpStatus.OK).body(responseDto);
         } catch (RuntimeException e) {
             EventUpdateDto hrdto = new EventUpdateDto("Unsuccess");
@@ -67,9 +68,9 @@ public class StudentProfileController {
         }
     }
     @PatchMapping("/updateProfileDetails")
-    public ResponseEntity<?> updateDetails(@RequestBody GetSingleProfileDto profileDto) {
+    public ResponseEntity<?> updateDetails(@RequestBody GetSingleProfileDto profileDto, Integer userId) {
         try {
-            studentProfileService.updateProfileDetails(profileDto);
+            studentProfileService.updateProfileDetails(profileDto, userId);
             BlogUpdateDto userupdateDTO = new BlogUpdateDto("success");
             userupdateDTO.setMessage("Profile Details Updated Successfully");
 
@@ -83,9 +84,9 @@ public class StudentProfileController {
     }
 
     @DeleteMapping("/deleteProfile")
-    public ResponseEntity<?> deleteProfileById(@RequestParam Integer studentProfileId) {
+    public ResponseEntity<?> deleteProfileById(@RequestParam Integer userId) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success", studentProfileService.deleteProfileById(studentProfileId)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success", studentProfileService.deleteProfileById(userId)));
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess", e.getMessage()));

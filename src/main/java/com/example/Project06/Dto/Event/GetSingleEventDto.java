@@ -38,4 +38,17 @@ public class GetSingleEventDto {
         this.photo = events.getPhoto();
         this.price = events.getPrice();
     }
+
+    public GetSingleEventDto(Integer eventsid, String eventName, String eventDetails, String eventTagline,
+                             LocalDate eventDate, LocalDate date, String status, String photo, String price) {
+        this.eventsid = eventsid;
+        this.eventName = eventName;
+        this.eventDetails = eventDetails;
+        this.eventTagline = eventTagline;
+        this.eventDate = eventDate;
+        this.date = date;
+        this.status = status;
+        this.photo = photo;
+        this.price = price;
+    }
 }
