@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Optional;
+
 
 @Getter
 @Setter
@@ -92,6 +94,10 @@ public class Job {
         this.incentives = jobDto.getIncentives();
         this.essentialRequirements = jobDto.getEssentialRequirements();
         this.seatNo = jobDto.getSeatNo();
+        this.jobId = jobDto.getJobId();
 
     }
+
+
+
 }

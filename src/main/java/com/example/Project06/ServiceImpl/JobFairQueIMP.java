@@ -6,12 +6,14 @@ import com.example.Project06.Dto.JobfairQue.ResponseJobFairQueDto;
 import com.example.Project06.Dto.JobfairQue.ResponseOfAllJobFairQue;
 import com.example.Project06.Entity.Job;
 import com.example.Project06.Entity.JobfairQue;
+import com.example.Project06.Entity.User;
 import com.example.Project06.Repository.JobFairQueRepo;
 import com.example.Project06.Repository.JobRepository;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.IJobFairQue;
 import com.example.Project06.exception.*;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class JobFairQueIMP implements IJobFairQue {
 
     @Override
     public String addJobFairQuestion(JobFairQueDto jobFairQueDto) {
+
         JobfairQue jobfairQue = new JobfairQue(jobFairQueDto);
         jobFairQueRepo.save(jobfairQue);
         return "Job Question added successfully";
