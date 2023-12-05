@@ -36,13 +36,19 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
     @Override
     public String AddItTrainingBooking(ItTrianningBookingDto itTrianningBookingDto) {
         Optional<User> user = userRepository.findById(itTrianningBookingDto.getUserId());
-        Optional<ItTraining> itTraining;
-        itTraining = itTrainingRepo.findById(Integer.valueOf(itTrianningBookingDto.getItTrainingId()));
+        Optional<ItTraining> itTraining = itTrainingRepo.findById(itTrianningBookingDto.getItTrainingId());
 
         if (user.isPresent() && itTraining.isPresent()) {
-            ItTrainingBooking itTrainingBooking = new ItTrainingBooking(itTrianningBookingDto);
-            itTrianningBookingRepo.save(itTrainingBooking);
-            return "Booking saved";
+            Integer itTrainingId = itTrianningBookingDto.getItTrainingId();
+            if (itTrainingId != null) {
+                // Use the non-null itTrainingId value
+                ItTrainingBooking itTrainingBooking = new ItTrainingBooking(itTrianningBookingDto);
+                itTrianningBookingRepo.save(itTrainingBooking);
+                return "Booking saved";
+            } else {
+                // Handle the case where itTrainingId is null
+                throw new IllegalArgumentException("ItTrainingId cannot be null");
+            }
         } else {
             if (!user.isPresent()) {
                 throw new UserNotFoundExceptions("User not found");
@@ -51,6 +57,23 @@ public class ItTrainingBookingServiceImpl implements ItTrainingBookingService {
             }
         }
     }
+
+//        Optional<User> user = userRepository.findById(itTrianningBookingDto.getUserId());
+//        Optional<ItTraining> itTraining;
+//        itTraining = itTrainingRepo.findById(Integer.valueOf(itTrianningBookingDto.getItTrainingId()));
+//
+//        if (user.isPresent() && itTraining.isPresent()) {
+//            ItTrainingBooking itTrainingBooking = new ItTrainingBooking(itTrianningBookingDto);
+//            itTrianningBookingRepo.save(itTrainingBooking);
+//            return "Booking saved";
+//        } else {
+//            if (!user.isPresent()) {
+//                throw new UserNotFoundExceptions("User not found");
+//            } else {
+//                throw new ItTrainingNotFoundException("ItTraining not found");
+//            }
+//        }
+//    }
 
 
     @Override
