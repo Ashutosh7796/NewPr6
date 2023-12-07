@@ -1,45 +1,50 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.MentorProgramDto.MentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseAllMentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseMentorProgramSingleDto;
+import com.example.Project06.Dto.MentorScheduleDto.MentorScheduleDto;
+import com.example.Project06.Dto.Planning.CareerPlaningDto;
+import com.example.Project06.Dto.Planning.ResponseAllCareersDto;
+import com.example.Project06.Dto.Planning.ResponseCareerPlansDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Service.IMentorProgram;
+import com.example.Project06.Dto.hr.ResponseAllHrDtos;
+import com.example.Project06.Dto.hr.ResponseHrSingleDto;
+import com.example.Project06.Service.CareerPlanningService;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.OffsetDateTime;
 
 @RestController
-@RequestMapping("/mentorprogram")
+@RequestMapping("/CareerPlanning")
 @AllArgsConstructor
-public class MentorProgramController {
+public class CareerPlanningController {
 
-    private final IMentorProgram iMentorProgram;
+    private final CareerPlanningService careerPlanningService;
+
+
     @PostMapping("/post")
-    public ResponseEntity<?> save(@RequestBody MentorProgramDto mentorProgramDto)
+    public ResponseEntity<?> CareerPlans(@RequestBody CareerPlaningDto careerPlaningDto)
     {
         try {
 
-            iMentorProgram.save(mentorProgramDto);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","mentor program details added"));
+            careerPlanningService.createCareerPlan(careerPlaningDto);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","career plans details added"));
 
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("unsuccess",e.getMessage()));
+
         }
     }
 
+
     @GetMapping("/getById")
-    public ResponseEntity<?> getById(Integer mentorProgramId)
+    public ResponseEntity<?> getById(Integer CareerPlanning)
     {
         try {
-            ResponseMentorProgramSingleDto responseSingleDto = new ResponseMentorProgramSingleDto("success");
-            responseSingleDto.setResponse(iMentorProgram.getById(mentorProgramId));
-            return ResponseEntity.status(HttpStatus.OK).body(responseSingleDto);
+            ResponseCareerPlansDto responseCareerPlansDto = new ResponseCareerPlansDto("success");
+            responseCareerPlansDto.setResponse(careerPlanningService.getPlanById(CareerPlanning));
+            return ResponseEntity.status(HttpStatus.OK).body(responseCareerPlansDto);
         }catch (RuntimeException e){
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
@@ -49,13 +54,14 @@ public class MentorProgramController {
         }
     }
 
-    @GetMapping("/getAll")
+
+    @GetMapping("/getAllCareerPlans")
 
     public ResponseEntity<?> getById() {
         try {
-            ResponseAllMentorProgramDto responseObjectDto = new ResponseAllMentorProgramDto("success");
-            responseObjectDto.setResponse(iMentorProgram.getAll());
-            return ResponseEntity.status(HttpStatus.OK).body(responseObjectDto);
+            ResponseAllCareersDto responseAllCareersDto = new ResponseAllCareersDto("success");
+            responseAllCareersDto.setResponse(careerPlanningService.getAllCareerPlans());
+            return ResponseEntity.status(HttpStatus.OK).body(responseAllCareersDto);
         }catch (RuntimeException e){
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
@@ -66,20 +72,27 @@ public class MentorProgramController {
     }
 
 
-
     @PatchMapping("/update")
     public ResponseEntity<?> updateById(
-            @RequestParam String programName,
-            @RequestParam String programDetails,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam String price,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time,
-            @RequestParam String mentorProgramcol,
+
+            @RequestParam String domain,
+
+            @RequestParam String mode,
+
+            @RequestParam OffsetDateTime slot,
+
+            @RequestParam String cost,
+
             @RequestParam String status,
-            @RequestParam Integer mentorProgramId){
+
+            @RequestParam Integer careerPlanning
+
+
+
+    ) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.updateBootcampDetails(
-                    programName,programDetails,date,price,time,mentorProgramcol,status,mentorProgramId
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",careerPlanningService.updateCareerPlans(
+                    domain,mode,slot,cost,status,careerPlanning
 
             )));
         }catch (RuntimeException e){
@@ -90,10 +103,13 @@ public class MentorProgramController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
         }
     }
+
+
+
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteById( @RequestParam Integer mentorProgramId) {
+    public ResponseEntity<?> deleteById( @RequestParam Integer careerPlanning) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.deleteById(mentorProgramId)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",careerPlanningService.deleteById(careerPlanning)));
         }catch (RuntimeException e){
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
@@ -102,5 +118,7 @@ public class MentorProgramController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
         }
     }
+
+
 
 }
