@@ -36,6 +36,7 @@ public class FilterController {
             return ResponseEntity.status(HttpStatus.OK).body(responseGetAllJobDto);
     }
 
+
     @GetMapping("/ascendFilter")
     public ResponseEntity<ResponseGetAllJobDto> searchByFilterAndSort(
             @RequestParam(required = false) List<String> companyName,
