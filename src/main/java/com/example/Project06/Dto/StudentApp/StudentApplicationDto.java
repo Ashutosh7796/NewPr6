@@ -27,13 +27,4 @@ public class StudentApplicationDto {
     public StudentApplicationDto() {
     }
 
-    public StudentApplicationDto(StudentApplication studentApplication) {
-        this.StudentApplicationId = studentApplication.getStudentApplicationId();
-        this.date = studentApplication.getDate();
-        this.time = studentApplication.getTime();
-        this.RecruiterNotes = studentApplication.getRecruiterNotes();
-        this.jobId = studentApplication.getJobId();
-        this.Status = studentApplication.getStatus();
-        this.UserId = studentApplication.getUserId();
-    }
 }

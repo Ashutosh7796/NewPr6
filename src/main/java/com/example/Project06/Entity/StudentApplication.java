@@ -1,6 +1,4 @@
 package com.example.Project06.Entity;
-
-import com.example.Project06.Dto.StudentApp.StudentApplicationDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,41 +8,37 @@ import java.time.LocalTime;
 
 
 @Entity
-@Table(name = "StudentApplication")
+@Table(name = "StudentApplicationses")
 @Getter
 @Setter
 public class StudentApplication {
 
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer StudentApplicationId;
+        @Id
+        @Column(nullable = false, updatable = false)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer studentApplicationsId;
 
-    @Column
-    private LocalDate date;
+        @Column
+        private LocalDate date;
 
-    @Column
-    private LocalTime time;
+        @Column
+        private LocalTime time;
 
-    @Column(length = 250)
-    private String RecruiterNotes;
+        @Column(length = 250)
+        private String recuterNote;
 
-    @Column(nullable = false)
-    private Integer jobId;
+        @Column(nullable = false)
+        private Integer jobId;
 
-    @Column(length = 45)
-    private String Status;
+        @Column(length = 45)
+        private String studentApplicationscol;
 
-    @Column(nullable = false)
-    private User UserId;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "user_user_id", nullable = false)
+        private User userUser;
 
-    public StudentApplication(StudentApplicationDto studentApplicationDto) {
-        this.StudentApplicationId = studentApplicationDto.getStudentApplicationId();
-        this.date = studentApplicationDto.getDate();
-        this.time = studentApplicationDto.getTime();
-        this.RecruiterNotes = studentApplicationDto.getRecruiterNotes();
-        this.jobId = studentApplicationDto.getJobId();
-        this.Status = studentApplicationDto.getStatus();
-        this.UserId = studentApplicationDto.getUserId();
     }
-}
+
+
+
+
