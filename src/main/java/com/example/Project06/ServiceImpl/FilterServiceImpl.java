@@ -69,7 +69,7 @@ public class FilterServiceImpl implements FilterService {
                 predicates.add(root.get("Salary").in(filterDto.getSalary()));
             }
             if (filterDto.getExperienceLevel() != null && !filterDto.getExperienceLevel().isEmpty()) {
-                predicates.add(root.get("ExperienceLevel").in(filterDto.getExperienceLevel()));
+                predicates.add(root.get("experienceLevel").in(filterDto.getExperienceLevel()));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
