@@ -25,13 +25,13 @@ public class StudentApplication {
         private LocalTime time;
 
         @Column(length = 250)
-        private String recuterNote;
+        private String recruiterNote;
 
         @Column(nullable = false)
         private Integer jobId;
 
         @Column(length = 45)
-        private String studentApplicationscol;
+        private String studentApplicationStatus;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_user_id", nullable = false)
