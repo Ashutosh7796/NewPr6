@@ -105,6 +105,7 @@ public class AppConfig {
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/mentorprogramgit/**").permitAll()
                 .requestMatchers("/filter/**").permitAll()
+                .requestMatchers("/save/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
