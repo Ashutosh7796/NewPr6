@@ -65,6 +65,7 @@ public class AppConfig {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -87,7 +88,6 @@ public class AppConfig {
                 .requestMatchers("/hr/**").permitAll()
                 .requestMatchers("/bootcampbookings/**").permitAll()
                 .requestMatchers("/mentorfeedback/**").permitAll()
-                .requestMatchers("/LiveProjectBooking/**").permitAll()
 
                 .requestMatchers("/mentor/**").permitAll()
                 .requestMatchers("/plan/**").permitAll()
@@ -96,6 +96,15 @@ public class AppConfig {
                 .requestMatchers("/ItTrainingBooking/**").permitAll()
                 .requestMatchers("/ItTraining/**").permitAll()
                 .requestMatchers("/ESuggest/**").permitAll()
+                .requestMatchers("/StudentProfile/**").permitAll()
+                .requestMatchers("/HrCall/**").permitAll()
+                .requestMatchers("/Blogs/**").permitAll()
+                .requestMatchers("/verification/**").permitAll()
+                .requestMatchers("/company/**").permitAll()
+                .requestMatchers("/Events/**").permitAll()
+                .requestMatchers("/user/**").permitAll()
+                .requestMatchers("/mentorprogramgit/**").permitAll()
+                .requestMatchers("/filter/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)

@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface StudentProfileService {
     String AddProfile(StudentProfileDto studentProfileDto, Integer userId);
-    public GetSingleProfileDto getProfileById(Integer studnetProfileId);
+    public GetSingleProfileDto getProfileById(Integer userId);
 
     List<GetSingleProfileDto> getAllProfiles(int pageNo, int pageSize);
-    public void updateProfileDetails (GetSingleProfileDto profileDto);
+    public void updateProfileDetails (GetSingleProfileDto profileDto, Integer userId);
 
-    public String deleteProfileById(Integer studentProfileId);
+    public String deleteProfileById(Integer userId);
 
 
 }

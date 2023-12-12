@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,15 +48,21 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public GetSingleProfileDto getProfileById(Integer studnetProfileId) {
-        Optional<StudentProfile> profile = studentProfRepo.findById(studnetProfileId);
+    public GetSingleProfileDto getProfileById(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
 
-        if(profile.isEmpty())
-        {
-            throw new RuntimeException("Profile Not Found by id " + studnetProfileId);
+        if (user.isPresent()) {
+            User user1 = user.get();
+            Optional<StudentProfile> profile = studentProfRepo.findByUserUser(user1);
+
+            if (profile.isPresent()) {
+                return convertToDto(profile.get());
+            } else {
+                throw new RuntimeException("Profile Not Found for User with userId " + userId);
+            }
+        } else {
+            throw new UserNotFoundExceptions("User Not Found with Id:" + userId);
         }
-        GetSingleProfileDto userDTO = new GetSingleProfileDto(profile.get());
-        return userDTO;
     }
 
     @Override
@@ -75,68 +82,93 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void updateProfileDetails(GetSingleProfileDto profileDto) {
-        StudentProfile profile = studentProfRepo.findById(profileDto.getStudentProfileId()).orElseThrow(()-> new RuntimeException("Profile Not Found with Id:" + profileDto.getStudentProfileId()));
+    public void updateProfileDetails(GetSingleProfileDto profileDto, Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
 
-        if (profileDto.getCourse() != null){
-            profile.setCourse(profileDto.getCourse());
-        }
-        if (profileDto.getExperienceType() != null) {
-            profile.setExperienceType(profileDto.getExperienceType());
-        }
-        if (profileDto.getWorkExperience() != null) {
-            profile.setWorkExperience(profileDto.getWorkExperience());
-        }
-        if (profileDto.getLastWorkDuration() != null) {
-            profile.setLastWorkDuration(profileDto.getLastWorkDuration());
-        }
-        if (profileDto.getLastCompany() != null) {
-            profile.setLastCompany(profileDto.getLastCompany());
-        }
-        if (profileDto.getLastSalary() != null) {
-            profile.setLastSalary(profileDto.getLastSalary());
-        }
-        if (profileDto.getPreviousDesignation() != null) {
-            profile.setPreviousDesignation(profileDto.getPreviousDesignation());
-        }
-        if (profileDto.getCareerBreak() != null) {
-            profile.setCareerBreak(profileDto.getCareerBreak());
-        }
-        if (profileDto.getHighestLevelOfEud() != null) {
-            profile.setHighestLevelOfEud(profileDto.getHighestLevelOfEud());
-        }
-        if (profileDto.getCurrentLocation() != null) {
-            profile.setCurrentLocation(profileDto.getCurrentLocation());
-        }
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Optional<StudentProfile> profileOptional = studentProfRepo.findByUserUser(user);
 
-        if (profileDto.getAvailableToJoin() != null) {
-            profile.setAvailableToJoin(profileDto.getAvailableToJoin());
-        }
-        if (profileDto.getSpecialization() != null) {
-            profile.setSpecialization(profileDto.getSpecialization());
-        }
-        if (profileDto.getCourseDuration() != null) {
-            profile.setCourseDuration(profileDto.getCourseDuration());
-        }
-        if (profileDto.getSkills() != null) {
-            profile.setSkills(profileDto.getSkills());
-        }
-        if (profileDto.getShortAboutYourself() != null) {
-            profile.setShortAboutYourself(profileDto.getShortAboutYourself());
-        }
+            if (profileOptional.isPresent()) {
+                StudentProfile profile = profileOptional.get();
 
-        if (profileDto.getPreferredSalary() != null) {
-            profile.setPreferredSalary(profileDto.getPreferredSalary());
-        }
+                if (profileDto.getCourse() != null) {
+                    profile.setCourse(profileDto.getCourse());
+                }
+                if (profileDto.getExperienceType() != null) {
+                    profile.setExperienceType(profileDto.getExperienceType());
+                }
+                if (profileDto.getWorkExperience() != null) {
+                    profile.setWorkExperience(profileDto.getWorkExperience());
+                }
+                if (profileDto.getLastWorkDuration() != null) {
+                    profile.setLastWorkDuration(profileDto.getLastWorkDuration());
+                }
+                if (profileDto.getLastCompany() != null) {
+                    profile.setLastCompany(profileDto.getLastCompany());
+                }
+                if (profileDto.getLastSalary() != null) {
+                    profile.setLastSalary(profileDto.getLastSalary());
+                }
+                if (profileDto.getPreviousDesignation() != null) {
+                    profile.setPreviousDesignation(profileDto.getPreviousDesignation());
+                }
+                if (profileDto.getCareerBreak() != null) {
+                    profile.setCareerBreak(profileDto.getCareerBreak());
+                }
+                if (profileDto.getHighestLevelOfEud() != null) {
+                    profile.setHighestLevelOfEud(profileDto.getHighestLevelOfEud());
+                }
+                if (profileDto.getCurrentLocation() != null) {
+                    profile.setCurrentLocation(profileDto.getCurrentLocation());
+                }
+                if (profileDto.getAvailableToJoin() != null) {
+                    profile.setAvailableToJoin(profileDto.getAvailableToJoin());
+                }
+                if (profileDto.getSpecialization() != null) {
+                    profile.setSpecialization(profileDto.getSpecialization());
+                }
+                if (profileDto.getCourseDuration() != null) {
+                    profile.setCourseDuration(profileDto.getCourseDuration());
+                }
+                if (profileDto.getSkills() != null) {
+                    profile.setSkills(profileDto.getSkills());
+                }
+                if (profileDto.getShortAboutYourself() != null) {
+                    profile.setShortAboutYourself(profileDto.getShortAboutYourself());
+                }
 
-        studentProfRepo.save(profile);
+                if (profileDto.getPreferredSalary() != null) {
+                    profile.setPreferredSalary(profileDto.getPreferredSalary());
+                }
+
+                studentProfRepo.save(profile);
+            } else {
+                throw new RuntimeException("Profile not found for the user with userId " + userId);
+            }
+        } else {
+            throw new UserNotFoundExceptions("User not found with Id:" + userId);
+        }
     }
 
+
     @Override
-    public String deleteProfileById(Integer studentProfileId) {
-        studentProfRepo.findById(studentProfileId).orElseThrow(() -> new RuntimeException("Profile details Not found By Id"));
-        studentProfRepo.deleteById(studentProfileId);
-        return "Profile deleted Successfully ";
+    public String deleteProfileById(Integer userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            User user1 = user.get();
+            Optional<StudentProfile> profile = studentProfRepo.findByUserUser(user1);
+
+            if (profile.isPresent()) {
+                studentProfRepo.deleteById(profile.get().getStudentProfileId());
+                return "Profile deleted Successfully ";
+            } else {
+                throw new RuntimeException("Profile Not Found for User with userId " + userId);
+            }
+        } else {
+            throw new UserNotFoundExceptions("User Not Found with Id:" + userId);
+        }
     }
 
     private GetSingleProfileDto convertToDto(StudentProfile studentProfile) {
