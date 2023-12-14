@@ -1,6 +1,9 @@
 package com.example.Project06.Entity;
+import com.example.Project06.Dto.StudentApplication.StudentApplicationDto;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -8,9 +11,10 @@ import java.time.LocalTime;
 
 
 @Entity
-@Table(name = "StudentApplicationses")
+@Table(name = "StudentApplication")
 @Getter
 @Setter
+@NoArgsConstructor
 public class StudentApplication {
 
         @Id
@@ -37,7 +41,15 @@ public class StudentApplication {
         @JoinColumn(name = "user_user_id", nullable = false)
         private User userUser;
 
-    }
+        public StudentApplication(StudentApplicationDto studentApplicationDto) {
+
+                this.date = studentApplicationDto.getDate();
+                this.time = studentApplicationDto.getTime();
+                this.recruiterNote = studentApplicationDto.getRecruiterNote();
+                this.jobId = studentApplicationDto.getJobId();
+                this.studentApplicationStatus = studentApplicationDto.getStudentApplicationStatus();
+        }
+}
 
 
 

@@ -9,10 +9,7 @@ import com.example.Project06.Dto.JobSave.ResponseAllSavedJobDto;
 import com.example.Project06.Dto.ResponseDto;
 import com.example.Project06.Dto.SingleBlogDto;
 import com.example.Project06.Service.JobSaveService;
-import com.example.Project06.exception.BlogNotFoundException;
-import com.example.Project06.exception.JobNotFoundException;
-import com.example.Project06.exception.NoSavedJobFoundException;
-import com.example.Project06.exception.UserNotFoundExceptions;
+import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +21,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/save")
 @RequiredArgsConstructor
-
 public class JobSaveController {
 
     private final JobSaveService jobSaveService;
@@ -37,6 +33,8 @@ public class JobSaveController {
         } catch (UserNotFoundExceptions e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful", e.getMessage()));
         }catch (JobNotFoundException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful", e.getMessage()));
+        }catch (JobSavedAlreadyException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponseDTO("Unsuccessful", e.getMessage()));
         }
     }

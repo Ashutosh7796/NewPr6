@@ -35,10 +35,15 @@ public class jobSaveImpl implements JobSaveService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            Optional<Job> jobOptional = jobRepository.findById(Integer.valueOf(jobId));
+            Optional<Job> jobOptional = jobRepository.findById(jobId);
 
             if (jobOptional.isPresent()) {
                 Job job = jobOptional.get();
+
+                if (hasUserAppliedForJob(userId, job)) {
+                    throw new JobSavedAlreadyException("User with id " + user.getUser_id() +
+                            " has already saved this job");
+                }
 
                 JobSave jobSave = new JobSave();
                 jobSave.setUserId(userId);
@@ -52,6 +57,10 @@ public class jobSaveImpl implements JobSaveService {
         } else {
             throw new UserNotFoundExceptions("User not found with ID: " + userId);
         }
+    }
+
+    private boolean hasUserAppliedForJob(Integer userId, Job job) {
+        return jobSaveRepo.existsByUserIdAndJobId(userId, job.getJobId());
     }
 
     @Override
