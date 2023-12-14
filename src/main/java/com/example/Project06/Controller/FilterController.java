@@ -5,6 +5,7 @@ import com.example.Project06.Dto.Job.JobDto;
 import com.example.Project06.Dto.Job.ResponseGetAllJobDto;
 import com.example.Project06.Service.FilterService;
 import com.example.Project06.exception.JobNotFoundException;
+import com.example.Project06.exception.NoMatchingResultFound;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +30,18 @@ public class FilterController {
             @RequestParam(required = false) List<String>  experienceLevel
 
             ) {
-        FilterDto filterDto = new FilterDto(companyName, jobLocation, salary,experienceLevel );
+        try {
+            FilterDto filterDto = new FilterDto(companyName, jobLocation, salary, experienceLevel);
             List<JobDto> listOfJob = filterService.mainFilter(filterDto);
             ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("success");
             responseGetAllJobDto.setList(listOfJob);
             return ResponseEntity.status(HttpStatus.OK).body(responseGetAllJobDto);
+        }catch (NoMatchingResultFound e){
+            ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("unsuccess");
+            responseGetAllJobDto.setException("No Matching Data Found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGetAllJobDto);
+        }
     }
-
 
     @GetMapping("/ascendFilter")
     public ResponseEntity<ResponseGetAllJobDto> searchByFilterAndSort(
@@ -54,6 +60,10 @@ public class FilterController {
             responseGetAllJobDto.setList(listOfJob);
             return ResponseEntity.status(HttpStatus.OK).body(responseGetAllJobDto);
         } catch (JobNotFoundException jobNotFoundException) {
+            ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("unsuccess");
+            responseGetAllJobDto.setException("No Matching Data Found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGetAllJobDto);
+        }catch (NoMatchingResultFound e){
             ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("unsuccess");
             responseGetAllJobDto.setException("No Matching Data Found");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGetAllJobDto);

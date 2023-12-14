@@ -6,6 +6,7 @@ import com.example.Project06.Entity.Job;
 import com.example.Project06.Repository.JobRepository;
 import com.example.Project06.Service.FilterService;
 import com.example.Project06.exception.JobNotFoundException;
+import com.example.Project06.exception.NoMatchingResultFound;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
@@ -45,6 +46,10 @@ public class FilterServiceImpl implements FilterService {
 
         List<Job> filteredJobs = jobRepository.findAll(spec);
 
+        if (filteredJobs.isEmpty()) {
+            throw new NoMatchingResultFound("No Matching Data Found");
+        }
+
         List<JobDto> listOfJobDtos = new ArrayList<>();
         for (Job job : filteredJobs) {
             JobDto jobDto = new JobDto(job);
@@ -77,6 +82,9 @@ public class FilterServiceImpl implements FilterService {
 
         List<Job> filteredJobs = jobRepository.findAll(spec);
 
+        if (filteredJobs.isEmpty()) {
+            throw new NoMatchingResultFound("No Matching Data Found");
+        }
         List<JobDto> listOfJobDtos = filteredJobs.stream()
                 .map(JobDto::new)
                 .collect(Collectors.toList());
@@ -104,4 +112,5 @@ public class FilterServiceImpl implements FilterService {
                 .sorted(comparator)
                 .collect(Collectors.toList());
     }
+
 }
