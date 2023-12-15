@@ -22,6 +22,6 @@ public interface JobService {
 
     public List<JobDto> getJobsByStatus(String status);
 
-
+    public List<JobDto> getByUserId(Integer userId);
 
 }
