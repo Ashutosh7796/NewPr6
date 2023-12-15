@@ -11,6 +11,7 @@ import com.example.Project06.exception.JobNotFoundException;
 import com.example.Project06.exception.NoSavedJobFoundException;
 import com.example.Project06.exception.UserNotFoundExceptions;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -167,7 +168,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDto> getAlljob() {
-        List<Job> jobs = jobRepository.findAll();
+        List<Job> jobs = jobRepository.findAll(Sort.by(Sort.Direction.DESC, "jobId"));
         return jobs.stream()
                 .map(JobDto::new)
                 .collect(Collectors.toList());
