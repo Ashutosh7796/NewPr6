@@ -69,8 +69,6 @@ public class User {
     @OneToMany(mappedBy = "userUser")
     private Set<Hr> userUserHrs;
 
-    @OneToMany(mappedBy = "userUser")
-    private Set<StudentApplications> userUserStudentApplicationses;
 
     @OneToMany(mappedBy = "userUser")
     private Set<Documents> userUserDocumentses;
