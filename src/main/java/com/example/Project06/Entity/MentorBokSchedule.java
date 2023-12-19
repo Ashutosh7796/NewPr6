@@ -1,5 +1,6 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.MentorScheduleDto.MentorScheduleDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,11 +38,24 @@ public class MentorBokSchedule {
     @Column(nullable = false)
     private Integer mentorScheduleMentorScheduleId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_user_id", nullable = false)
-    private User userUser;
 
-    @OneToMany(mappedBy = "mentorBokScheduleMentorBokSchedule")
-    private Set<MentorBookings> mentorBokScheduleMentorBokScheduleMentorBookingses;
+    @Column(name = "user_user_id", nullable = false)
+    private Integer userUser;
 
+    @Column(name = "mentorBokScheduleMentorBokSchedule")
+    private Integer mentorBookings;
+
+    public MentorBokSchedule() {
+    }
+    public MentorBokSchedule(MentorScheduleDto mentorScheduleDto) {
+
+        this.date = mentorScheduleDto.getDate();
+        this.mode = mentorScheduleDto.getMode();
+        this.time = mentorScheduleDto.getTime();
+        this.payment = mentorScheduleDto.getPayment();
+        this.status = mentorScheduleDto.getStatus();
+        this.mentorScheduleMentorScheduleId = mentorScheduleDto.getMentorScheduleMentorScheduleId();
+        this.userUser = mentorScheduleDto.getUserUser();
+        this.mentorBookings = mentorScheduleDto.getMentorBookings();
+    }
 }

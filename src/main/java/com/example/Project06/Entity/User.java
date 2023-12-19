@@ -76,8 +76,6 @@ public class User {
     @OneToMany(mappedBy = "userUser")
     private Set<PlatformResume> userUserPlatformResumes;
 
-    @OneToMany(mappedBy = "userUser")
-    private Set<Tpo> userUserTpoes;
 
     @OneToMany(mappedBy = "userUser")
     private Set<Feedback> userUserFeedbacks;

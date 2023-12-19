@@ -23,7 +23,7 @@ public class JobDto {
 
     private String address;
 
-    private String skills;
+    private String[] skills;
 
     private String jobDescription;
 

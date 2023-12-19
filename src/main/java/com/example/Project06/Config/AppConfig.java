@@ -65,7 +65,6 @@ public class AppConfig {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder builder = http.getSharedObject(AuthenticationManagerBuilder.class);
@@ -107,6 +106,16 @@ public class AppConfig {
                 .requestMatchers("/filter/**").permitAll()
                 .requestMatchers("/save/**").permitAll()
                 .requestMatchers("/studentApplication/**").permitAll()
+                .requestMatchers("/banner/**").permitAll()
+                .requestMatchers("/bootcamp/**").permitAll()
+                .requestMatchers("/hr/**").permitAll()
+                .requestMatchers("/bootcampbookings/**").permitAll()
+                .requestMatchers("/mentorfeedback/**").permitAll()
+                .requestMatchers("/mentorprogram/**").permitAll()
+                .requestMatchers("/mentorProgramBooking/**").permitAll()
+                .requestMatchers("/mentorschedule/**").permitAll()
+                .requestMatchers("/CareerPlanning/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(manager)
