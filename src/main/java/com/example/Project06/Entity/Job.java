@@ -35,7 +35,7 @@ public class Job {
     private String address;
 
     @Column(length = 250)
-    private String skills;
+    private String[] skills;
 
     @Column(length = 250)
     private String jobDescription;

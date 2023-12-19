@@ -1,5 +1,6 @@
 package com.example.Project06.Entity;
 
+import com.example.Project06.Dto.Planning.CareerPlaningDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,4 +37,16 @@ public class CareerPlanning {
     @Column(length = 45)
     private String status;
 
+    public CareerPlanning() {
+
+    }
+
+    public CareerPlanning(CareerPlaningDto careerPlaningDto) {
+        this.domain = careerPlaningDto.getDomain();
+        this.mode = careerPlaningDto.getMode();
+        this.slot = careerPlaningDto.getSlot();
+        this.cost = careerPlaningDto.getCost();
+        this.userId = careerPlaningDto.getUserId();
+        this.status = careerPlaningDto.getStatus();
+    }
 }

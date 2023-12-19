@@ -45,8 +45,7 @@ public class Tpo {
     @Column
     private LocalDate establishedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_user_id", nullable = false)
-    private User userUser;
+    @Column(name = "user_user_id", nullable = false)
+    private Integer userUser;
 
 }

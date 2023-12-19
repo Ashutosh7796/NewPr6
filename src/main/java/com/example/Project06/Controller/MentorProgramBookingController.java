@@ -1,12 +1,14 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.MentorProgramDto.MentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseAllMentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseMentorProgramSingleDto;
+import com.example.Project06.Dto.MentorProgramBookingDTO.MentorProgramBookingDto;
+import com.example.Project06.Dto.MentorProgramBookingDTO.ResponseAllMentorProgramBookingDto;
+import com.example.Project06.Dto.MentorProgramBookingDTO.ResponseMentorProtgramBookingSingleDto;
+
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Service.IMentorProgram;
+
+import com.example.Project06.Service.IMentorProgramBooking;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,31 +17,31 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @RestController
-@RequestMapping("/mentorprogram")
 @AllArgsConstructor
-public class MentorProgramController {
-
-    private final IMentorProgram iMentorProgram;
+@RequestMapping("/mentorProgramBooking")
+public class MentorProgramBookingController {
+    private final IMentorProgramBooking iMentorProgramBooking;
     @PostMapping("/post")
-    public ResponseEntity<?> save(@RequestBody MentorProgramDto mentorProgramDto)
+    public ResponseEntity<?> save(@RequestBody MentorProgramBookingDto mentorProgramBookingDto)
     {
         try {
 
-            iMentorProgram.save(mentorProgramDto);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","mentor program details added"));
+            iMentorProgramBooking.save(mentorProgramBookingDto);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","mentor program booking details added"));
 
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("unsuccess",e.getMessage()));
+
         }
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<?> getById(Integer mentorProgramId)
+    public ResponseEntity<?> getById(Integer mentorProgramBookingId)
     {
         try {
-            ResponseMentorProgramSingleDto responseSingleDto = new ResponseMentorProgramSingleDto("success");
-            responseSingleDto.setResponse(iMentorProgram.getById(mentorProgramId));
-            return ResponseEntity.status(HttpStatus.OK).body(responseSingleDto);
+            ResponseMentorProtgramBookingSingleDto responseMentorProtgramBookingSingleDto = new ResponseMentorProtgramBookingSingleDto("success");
+            responseMentorProtgramBookingSingleDto.setResponse(iMentorProgramBooking.getById(mentorProgramBookingId));
+            return ResponseEntity.status(HttpStatus.OK).body(responseMentorProtgramBookingSingleDto);
         }catch (RuntimeException e){
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
@@ -50,11 +52,10 @@ public class MentorProgramController {
     }
 
     @GetMapping("/getAll")
-
     public ResponseEntity<?> getById() {
         try {
-            ResponseAllMentorProgramDto responseObjectDto = new ResponseAllMentorProgramDto("success");
-            responseObjectDto.setResponse(iMentorProgram.getAll());
+            ResponseAllMentorProgramBookingDto responseObjectDto = new ResponseAllMentorProgramBookingDto("success");
+            responseObjectDto.setResponse(iMentorProgramBooking.getAll());
             return ResponseEntity.status(HttpStatus.OK).body(responseObjectDto);
         }catch (RuntimeException e){
 
@@ -69,17 +70,12 @@ public class MentorProgramController {
 
     @PatchMapping("/update")
     public ResponseEntity<?> updateById(
-            @RequestParam String programName,
-            @RequestParam String programDetails,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam String price,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time,
-            @RequestParam String mentorProgramcol,
-            @RequestParam String status,
-            @RequestParam Integer mentorProgramId){
+            @RequestParam LocalDate date,
+            @RequestParam String mentorProgramBookingscol,
+            @RequestParam Integer mentorProgramBookingId){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.updateBootcampDetails(
-                    programName,programDetails,date,price,time,mentorProgramcol,status,mentorProgramId
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgramBooking.updateBootcampDetails(
+                    date,mentorProgramBookingscol,mentorProgramBookingId
 
             )));
         }catch (RuntimeException e){
@@ -91,9 +87,9 @@ public class MentorProgramController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteById( @RequestParam Integer mentorProgramId) {
+    public ResponseEntity<?> deleteById( @RequestParam Integer mentorProgramBookingId) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.deleteById(mentorProgramId)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgramBooking.deleteById(mentorProgramBookingId)));
         }catch (RuntimeException e){
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
@@ -102,5 +98,4 @@ public class MentorProgramController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
         }
     }
-
 }

@@ -1,60 +1,60 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.MentorProgramDto.MentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseAllMentorProgramDto;
-import com.example.Project06.Dto.MentorProgramDto.ResponseMentorProgramSingleDto;
+import com.example.Project06.Dto.MentorScheduleDto.MentorScheduleDto;
+import com.example.Project06.Dto.MentorScheduleDto.ResponseAllMentorBokScheduleDto;
+import com.example.Project06.Dto.MentorScheduleDto.ResponseMentorBokScheduleSingleDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Service.IMentorProgram;
+import com.example.Project06.Dto.hr.HrDto;
+import com.example.Project06.Dto.hr.ResponseAllHrDtos;
+import com.example.Project06.Dto.hr.ResponseHrSingleDto;
+import com.example.Project06.Service.IHr;
+import com.example.Project06.Service.IMentorSchedule;
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @RestController
-@RequestMapping("/mentorprogram")
+@RequestMapping("/mentorschedule")
 @AllArgsConstructor
-public class MentorProgramController {
+public class MentorScheduleController {
+    private final IMentorSchedule iMentorSchedule;
 
-    private final IMentorProgram iMentorProgram;
     @PostMapping("/post")
-    public ResponseEntity<?> save(@RequestBody MentorProgramDto mentorProgramDto)
+    public ResponseEntity<?> saveBootcampDetails(@RequestBody MentorScheduleDto mentorScheduleDto)
     {
         try {
 
-            iMentorProgram.save(mentorProgramDto);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","mentor program details added"));
+            iMentorSchedule.saveHrDetails(mentorScheduleDto);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success","mentor schedule details added"));
 
         }catch (RuntimeException e){
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("unsuccess",e.getMessage()));
+
         }
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<?> getById(Integer mentorProgramId)
+    public ResponseEntity<?> getById(Integer mentorScheduleId)
     {
         try {
-            ResponseMentorProgramSingleDto responseSingleDto = new ResponseMentorProgramSingleDto("success");
-            responseSingleDto.setResponse(iMentorProgram.getById(mentorProgramId));
+            ResponseMentorBokScheduleSingleDto responseSingleDto = new ResponseMentorBokScheduleSingleDto("success");
+            responseSingleDto.setResponse(iMentorSchedule.getBootcampDetailsById(mentorScheduleId));
             return ResponseEntity.status(HttpStatus.OK).body(responseSingleDto);
         }catch (RuntimeException e){
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
         }catch (Exception e){
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
         }
     }
 
-    @GetMapping("/getAll")
-
+    @GetMapping("/getAllHrDetails")
     public ResponseEntity<?> getById() {
         try {
-            ResponseAllMentorProgramDto responseObjectDto = new ResponseAllMentorProgramDto("success");
-            responseObjectDto.setResponse(iMentorProgram.getAll());
+            ResponseAllMentorBokScheduleDto responseObjectDto = new ResponseAllMentorBokScheduleDto("success");
+            responseObjectDto.setResponse(iMentorSchedule.getAllBootcampDetails());
             return ResponseEntity.status(HttpStatus.OK).body(responseObjectDto);
         }catch (RuntimeException e){
 
@@ -65,22 +65,18 @@ public class MentorProgramController {
         }
     }
 
-
-
     @PatchMapping("/update")
     public ResponseEntity<?> updateById(
-            @RequestParam String programName,
-            @RequestParam String programDetails,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam String price,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time,
-            @RequestParam String mentorProgramcol,
+            @RequestParam LocalDate date,
+            @RequestParam String mode,
+            @RequestParam String time,
+            @RequestParam String payment,
             @RequestParam String status,
-            @RequestParam Integer mentorProgramId){
+            @RequestParam Integer mentorBookingsId
+    ) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.updateBootcampDetails(
-                    programName,programDetails,date,price,time,mentorProgramcol,status,mentorProgramId
-
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorSchedule.updateBootcampDetails(
+                    date,mode,time,payment,status,mentorBookingsId
             )));
         }catch (RuntimeException e){
             System.err.println(e.getMessage());
@@ -91,9 +87,9 @@ public class MentorProgramController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteById( @RequestParam Integer mentorProgramId) {
+    public ResponseEntity<?> deleteById( @RequestParam Integer mentorScheduleId) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorProgram.deleteById(mentorProgramId)));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto("success",iMentorSchedule.deleteById(mentorScheduleId)));
         }catch (RuntimeException e){
             System.err.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDto("unsuccess",e.getMessage()));
