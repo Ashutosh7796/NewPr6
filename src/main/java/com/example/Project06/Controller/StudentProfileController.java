@@ -2,18 +2,12 @@ package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.BlogUpdateDto;
 import com.example.Project06.Dto.Event.EventUpdateDto;
-import com.example.Project06.Dto.GetSingleBlogDto;
-import com.example.Project06.Dto.HrCall.GetSingleHrCallDto;
-import com.example.Project06.Dto.HrCall.ResponseAllHrCallDto;
-import com.example.Project06.Dto.HrCall.SingleHrCallDto;
 import com.example.Project06.Dto.ResponseDto;
 import com.example.Project06.Dto.StudentProfileDto.GetSingleProfileDto;
 import com.example.Project06.Dto.StudentProfileDto.ResponseAllProfileDto;
 import com.example.Project06.Dto.StudentProfileDto.SingleProfileDto;
 import com.example.Project06.Dto.StudentProfileDto.StudentProfileDto;
 import com.example.Project06.Service.StudentProfileService;
-import com.example.Project06.exception.BlogNotFoundException;
-import com.example.Project06.exception.HrCallNotFoundException;
 import com.example.Project06.exception.PageNotFoundException;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
