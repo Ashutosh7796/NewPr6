@@ -1,13 +1,9 @@
 package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.*;
-import com.example.Project06.Dto.Event.*;
 import com.example.Project06.Service.BlogService;
-import com.example.Project06.Service.EventService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

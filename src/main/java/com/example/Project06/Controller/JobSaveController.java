@@ -1,13 +1,10 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.BlogDto;
 import com.example.Project06.Dto.BlogUpdateDto;
 import com.example.Project06.Dto.JobSave.GetSaveJobDTO;
 import com.example.Project06.Dto.JobSave.GetSingleJobSave;
-import com.example.Project06.Dto.JobSave.JobSaveDto;
 import com.example.Project06.Dto.JobSave.ResponseAllSavedJobDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Dto.SingleBlogDto;
 import com.example.Project06.Service.JobSaveService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;

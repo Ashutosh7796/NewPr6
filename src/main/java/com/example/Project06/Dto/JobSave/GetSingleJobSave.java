@@ -14,8 +14,11 @@ public class GetSingleJobSave {
 
     private Integer JobId;
 
+    private Integer jobSaveId;
+
     public GetSingleJobSave(JobSave jobSave) {
         this.userId = jobSave.getUserId();
         this.JobId=jobSave.getJobId();
+        this.jobSaveId =jobSave.getJobSaveId();
     }
 }

@@ -2,12 +2,10 @@ package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.*;
 import com.example.Project06.Dto.Event.*;
-import com.example.Project06.Dto.StudentProfileDto.GetSingleProfileDto;
 import com.example.Project06.Service.EventService;
 import com.example.Project06.exception.EventBookingException;
 import com.example.Project06.exception.EventNotFoundException;
 import com.example.Project06.exception.PageNotFoundException;
-import com.example.Project06.exception.UserNotFoundExceptions;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

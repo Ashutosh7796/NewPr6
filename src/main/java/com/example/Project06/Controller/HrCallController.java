@@ -1,14 +1,11 @@
 package com.example.Project06.Controller;
 
 import com.example.Project06.Dto.Event.*;
-import com.example.Project06.Dto.GetSingleBlogDto;
 import com.example.Project06.Dto.HrCall.GetSingleHrCallDto;
 import com.example.Project06.Dto.HrCall.HrCallDto;
 import com.example.Project06.Dto.HrCall.ResponseAllHrCallDto;
 import com.example.Project06.Dto.HrCall.SingleHrCallDto;
-import com.example.Project06.Dto.ResponseAllBlogDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Service.EventService;
 import com.example.Project06.Service.HrCallService;
 import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;

@@ -1,14 +1,10 @@
 package com.example.Project06.Controller;
 
-import com.example.Project06.Dto.ItTraining.ItTrainingDTO;
-import com.example.Project06.Dto.ItTraining.ResponseAllItTrainingDTO;
 import com.example.Project06.Dto.LiveProject.LiveProjectDto;
 import com.example.Project06.Dto.LiveProject.ResponseAllLiveProjectDto;
 import com.example.Project06.Dto.LiveProject.ResponseSingleLiveProjectDto;
 import com.example.Project06.Dto.ResponseDto;
-import com.example.Project06.Entity.LiveProject;
 import com.example.Project06.Service.LiveProjectService;
-import com.example.Project06.exception.ItTrainingNotFoundException;
 import com.example.Project06.exception.LiveProjectNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

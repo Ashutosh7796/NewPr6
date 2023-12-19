@@ -1,9 +1,6 @@
 package com.example.Project06.Controller;
 
-
 import com.example.Project06.Dto.BlogUpdateDto;
-import com.example.Project06.Dto.Event.GetSingleEventDto;
-import com.example.Project06.Dto.JobSave.GetSaveJobDTO;
 import com.example.Project06.Dto.ResponseDto;
 import com.example.Project06.Dto.StudentApplication.GetStudentApplicationDto;
 import com.example.Project06.Dto.StudentApplication.StudentApplicationDto;

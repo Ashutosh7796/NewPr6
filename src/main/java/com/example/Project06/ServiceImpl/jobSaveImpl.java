@@ -85,8 +85,10 @@ public class jobSaveImpl implements JobSaveService {
 
         return listOfEventsByStatus.stream()
                 .map(jobs -> new GetSingleJobSave(
+
                         jobs.getUserId(),
-                        jobs.getJobId()
+                        jobs.getJobId(),
+                        jobs.getJobSaveId()
                 ))
                 .collect(Collectors.toList());
     }
@@ -97,6 +99,7 @@ public class jobSaveImpl implements JobSaveService {
         jobSaveRepo.deleteById(jobSaveId);
         return "Job Removed From Saved List Successfully ";
     }
+    
 }
 
 
