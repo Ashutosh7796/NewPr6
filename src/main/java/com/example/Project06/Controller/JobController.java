@@ -41,6 +41,7 @@ public class JobController {
     }
 
 
+
     @GetMapping("/getJob")
     public ResponseEntity<ResponseSingleJobDto> FindJobById(@RequestParam int JobId) {
         try {
