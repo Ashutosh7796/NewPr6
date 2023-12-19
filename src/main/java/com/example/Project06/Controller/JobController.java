@@ -41,6 +41,7 @@ public class JobController {
     }
 
 
+
     @GetMapping("/getJob")
     public ResponseEntity<ResponseSingleJobDto> FindJobById(@RequestParam int JobId) {
         try {
@@ -92,6 +93,22 @@ public class JobController {
             ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("success");
             responseGetAllJobDto.setException("Job not found");
             return (ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGetAllJobDto));
+        }
+    }
+
+
+
+    @GetMapping("/getByUserId")
+    public ResponseEntity<ResponseGetAllJobDto> getJobsByUserId(@RequestParam Integer userId) {
+        try {
+            ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("success");
+            List<JobDto> jobList = jobService.getByUserId(userId);
+            responseGetAllJobDto.setList(jobList);
+            return ResponseEntity.status(HttpStatus.OK).body(responseGetAllJobDto);
+        } catch (JobNotFoundException jobNotFoundException) {
+            ResponseGetAllJobDto responseGetAllJobDto = new ResponseGetAllJobDto("unsuccessful");
+            responseGetAllJobDto.setException("Jobs not found for user with ID: " + userId);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseGetAllJobDto);
         }
     }
 

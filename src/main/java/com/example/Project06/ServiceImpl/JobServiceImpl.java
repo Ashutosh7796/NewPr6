@@ -3,16 +3,15 @@ package com.example.Project06.ServiceImpl;
 import com.example.Project06.Dto.ItTraining.ItTrainingDTO;
 import com.example.Project06.Dto.ItTrianningBooking.ItTrianningBookingDto;
 import com.example.Project06.Dto.Job.JobDto;
-import com.example.Project06.Entity.ItTraining;
-import com.example.Project06.Entity.ItTrainingBooking;
-import com.example.Project06.Entity.Job;
-import com.example.Project06.Entity.User;
+import com.example.Project06.Entity.*;
 import com.example.Project06.Repository.JobRepository;
 import com.example.Project06.Repository.UserRepository;
 import com.example.Project06.Service.JobService;
 import com.example.Project06.exception.JobNotFoundException;
+import com.example.Project06.exception.NoSavedJobFoundException;
 import com.example.Project06.exception.UserNotFoundExceptions;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +72,29 @@ public class JobServiceImpl implements JobService {
     public List<JobDto> getJobsByStatus(String status) {
         List<Job> jobbystatus = jobRepository.getJobsByStatus(status);
         return jobbystatus.stream()
+                .map(JobDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<JobDto> getByUserId(Integer userId) {
+
+
+
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundExceptions("User Not Found");
+        }
+
+        User user = userOptional.get();
+        List<Job> jobs = jobRepository.findByUserUser(user);
+
+        if (jobs.isEmpty()) {
+            throw new NoSavedJobFoundException("No Applications Found for the specified student ID");
+        }
+
+        return jobs.stream()
                 .map(JobDto::new)
                 .collect(Collectors.toList());
     }
@@ -146,7 +168,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDto> getAlljob() {
-        List<Job> jobs = jobRepository.findAll();
+        List<Job> jobs = jobRepository.findAll(Sort.by(Sort.Direction.DESC, "jobId"));
         return jobs.stream()
                 .map(JobDto::new)
                 .collect(Collectors.toList());

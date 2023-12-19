@@ -16,6 +16,7 @@ public class  Project06Application {
 		System.err.println("PROJECT- 006..");
 		System.out.println("\n\n");
 
+
 		System.err.println("   .^.     [=====.   [========]   ..====]  [========]    .^.    [=====.   [========] " );
 		System.err.println(" //   \\\\   ||     \\\\     ||      //            ||      //   \\\\  ||     \\\\     || " );
 		System.err.println("||     ||  ||     //     ||      \\\\            ||     ||     || ||     //     ||     " );
