@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -75,6 +76,15 @@ public class Job {
     @ManyToOne(fetch = FetchType.LAZY ,optional = false)
     @JoinColumn(name = "user_user_id", nullable = false)
     private User userUser;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "job_interview_schedule",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "interview_schedule_id"))
+    private List<InterviewSchedule> interviewSchedule;
+//        = new ArrayList<>();
 
 
     public Job(JobDto jobDto ,String logo) {
