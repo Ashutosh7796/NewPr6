@@ -9,18 +9,14 @@ import com.example.Project06.exception.*;
 import com.example.Project06.utils.BaseResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -64,12 +60,12 @@ public class UserServiceImpl implements UserService {
     }
 
     private User insertUser(RegisterDto registerDto) {
-//        EmailVerification emailVerification = emailVerificationRepo.findByEmail(registerDto.getEmail());
+        EmailVerification emailVerification = emailVerificationRepo.findByEmail(registerDto.getEmail());
         User user = new User();
-//        if (emailVerification != null && !Objects.equals(emailVerification.getStatus(), "Not verified"));
-//            else {
-//            throw new EmailNotVerifiedException("Email not verified");
-//        }
+        if (emailVerification != null && !Objects.equals(emailVerification.getStatus(), "Not verified"));
+            else {
+            throw new EmailNotVerifiedException("Email not verified");
+        }
         user.setEmail(registerDto.getEmail());
         user.setMoNumber(registerDto.getMoNumber());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
