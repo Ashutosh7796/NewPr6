@@ -34,16 +34,18 @@ public class AppConfig {
     @Autowired
     private CustomAuthenticationProvider customAuthenticationProvider;
 
+    @Autowired
+    JwtConfig jwtConfig;
+
 
     @Autowired
     private JwtService jwtService;
 
-    private JwtConfig jwtConfig;
-
     @Bean
-    public JwtConfig jwtConfig() {
+    public JwtConfig jwtConfig(){
         return new JwtConfig();
     }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -80,7 +82,6 @@ public class AppConfig {
                 .requestMatchers("/JobFair/**").permitAll()
                 .requestMatchers("/jobFairQueAns/**").permitAll()
                 .requestMatchers("/banner/**").permitAll()
-                .requestMatchers("/Interview/**").permitAll()
                 .requestMatchers("/bootcamp/**").permitAll()
                 .requestMatchers("/hr/**").permitAll()
                 .requestMatchers("/bootcampbookings/**").permitAll()
@@ -126,9 +127,9 @@ public class AppConfig {
                 )
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
-                .addFilterBefore(new JwtUsernamePasswordAuthenticationFilter(manager, jwtConfig(), jwtService), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig(), jwtService), UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(new JwtUsernamePasswordAuthenticationFilter(manager, jwtConfig, jwtService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig, jwtService), UsernamePasswordAuthenticationFilter.class)
+        ;
         return http.build();
     }
     @Bean
@@ -137,16 +138,12 @@ public class AppConfig {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:5179"));
+                config.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
                 config.setAllowedMethods(Collections.singletonList("*"));
                 config.setAllowCredentials(true);
                 config.setAllowedHeaders(Collections.singletonList("*"));
                 config.setExposedHeaders(Arrays.asList("Authorization"));
                 config.setMaxAge(3600L);
-
-                System.out.println("Request Origin: " + request.getHeader("Origin"));
-                System.out.println("Configured Origins: " + config.getAllowedOrigins());
-
                 return config;
             }
         };
