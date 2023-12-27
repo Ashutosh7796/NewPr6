@@ -80,6 +80,7 @@ public class AppConfig {
                 .requestMatchers("/JobFair/**").permitAll()
                 .requestMatchers("/jobFairQueAns/**").permitAll()
                 .requestMatchers("/banner/**").permitAll()
+                .requestMatchers("/Interview/**").permitAll()
                 .requestMatchers("/bootcamp/**").permitAll()
                 .requestMatchers("/hr/**").permitAll()
                 .requestMatchers("/bootcampbookings/**").permitAll()
