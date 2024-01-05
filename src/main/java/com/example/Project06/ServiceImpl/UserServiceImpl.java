@@ -236,7 +236,7 @@ public class UserServiceImpl implements UserService {
 
             String subject = "Reset Password";
 
-            String from = "b.aniket1414@gmail.com";
+            String from = "ashutosh@opticalarc.com";
 
             String to = email;
 
@@ -272,7 +272,7 @@ public class UserServiceImpl implements UserService {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("b.aniket1414@gmail.com", "egmqlowlfodymfzw");
+                return new PasswordAuthentication("ashutosh@opticalarc.com", "pfjflxkpddubvdvs");
             }
 
         });
