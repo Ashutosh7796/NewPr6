@@ -59,6 +59,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                         SecurityContextHolder.getContext().setAuthentication(auth);
                     }
                 }
+
             } catch (Exception e) {
                 log.error("Error on filter once per request, path {}, error: {}", request.getRequestURI(), e.getMessage());
                 BaseResponseDTO responseDTO = new BaseResponseDTO();
@@ -74,6 +75,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
 
             }
         }
+
         log.info("end do filter: {}", request.getRequestURI());
         filterChain.doFilter(request, response);
 
