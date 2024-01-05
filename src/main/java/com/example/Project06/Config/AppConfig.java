@@ -79,6 +79,8 @@ public class AppConfig {
                 .formLogin().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/account/**").permitAll()
+                .requestMatchers("/assessment-exam/**").permitAll()
+                .requestMatchers("/selQue/**").permitAll()
                 .requestMatchers("/JobFair/**").permitAll()
                 .requestMatchers("/jobFairQueAns/**").permitAll()
                 .requestMatchers("/banner/**").permitAll()
