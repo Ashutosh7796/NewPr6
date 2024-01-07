@@ -21,7 +21,5 @@ public class SelectedQuestions {
     @Column(name = "questionId")
     private Integer questionId;
 
-    @Column(name = "time")
-    private String time;
 
 }

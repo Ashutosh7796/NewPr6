@@ -6,9 +6,11 @@ import com.example.Project06.Repository.QuestionRepo;
 import com.example.Project06.Repository.SelectedQuestionsRepository;
 import com.example.Project06.Service.QuestionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -16,23 +18,38 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class SelectedQuestionServiceImpl implements QuestionService {
 
-
     private final QuestionRepo questionsRepository;
-
     private final SelectedQuestionsRepository selectedQuestionsRepository;
 
-    @Override
-    public void selectAndSaveRandomQuestions(Integer userId, String subject) {
+    private static final Logger logger = LoggerFactory.getLogger(SelectedQuestionServiceImpl.class);
 
+    @Override
+    public void selectAndSaveRandomQuestions(Integer userId, String subject, Integer numberOfQuestions)
+            throws IllegalArgumentException {
+        try {
             List<Questions> allQuestions = questionsRepository.findBySubject(subject);
+
             int totalQuestions = allQuestions.size();
-            int numberOfQuestionsToSelect = Math.min(totalQuestions, 50);
+
+            if (numberOfQuestions > totalQuestions) {
+                throw new IllegalArgumentException("Number of requested questions exceeds the total available questions. Please choose a smaller number.");
+            }
+
+            int questionsToSelect = Math.min(totalQuestions, numberOfQuestions);
 
             Random random = new Random();
 
-            for (int i = 0; i < numberOfQuestionsToSelect; i++) {
-                int randomIndex = random.nextInt(totalQuestions);
-                Questions selectedQuestion = allQuestions.get(randomIndex);
+
+            List<Questions> shuffledQuestions = new ArrayList<>(allQuestions);
+            for (int i = shuffledQuestions.size() - 1; i > 0; i--) {
+                int index = random.nextInt(i + 1);
+                Questions temp = shuffledQuestions.get(index);
+                shuffledQuestions.set(index, shuffledQuestions.get(i));
+                shuffledQuestions.set(i, temp);
+            }
+
+            for (int i = 0; i < questionsToSelect; i++) {
+                Questions selectedQuestion = shuffledQuestions.get(i);
 
                 SelectedQuestions newSelectedQuestion = new SelectedQuestions();
                 newSelectedQuestion.setUserId(userId);
@@ -40,6 +57,14 @@ public class SelectedQuestionServiceImpl implements QuestionService {
                 newSelectedQuestion.setQuestionId(selectedQuestion.getQuestionId());
                 selectedQuestionsRepository.save(newSelectedQuestion);
             }
+
+            logger.info("Questions selected successfully");
+        } catch (IllegalArgumentException e) {
+            logger.error("IllegalArgumentException: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            logger.error("Unexpected Exception: {}", e.getMessage());
+            throw new RuntimeException("Something went wrong. Please try again later.", e);
         }
     }
-
+}
